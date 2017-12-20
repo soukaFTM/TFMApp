@@ -1,0 +1,120 @@
+<div>
+  <h3> Liste des produits </h3>
+  <!-- Chercher un produit -->
+  <div>
+    <label>mot cle :</label>
+    <input type="text" [(ngModel)]="motCle"/>
+    <button (click)=" newSearch();searchProduits()">Chercher</button>
+  </div>
+  <!-- Lister les produits -->
+  <div>
+    <table class="table table-striped" border="1">
+      <thead>
+      <tr>
+        <th>Code Promotion</th><th>Intituler</th><th>Description</th>
+        <th>Date debut</th><th>Date fin</th><th>Taux</th><th>Oppertaion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of pagePromotions?.content">
+        <td>{{p.codePromo}}</td><td>{{p.intituler}}</td>
+        <td>{{p.description}}</td><td>{{p.dateDebut}}</td><td>{{p.dateFin}}</td>
+        <td>{{p.taux}}</td>
+        <td>
+          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProduit(p)" />
+          <input type="button" class="btn btn-danger" value="Produits" (click)="ShowPromotionProduits(p)" />
+          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deletePromotion(p.codePromo)" />
+
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <ul class ="nav nav-pillis">
+      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+      </li>
+    </ul>
+  </div>
+  <div>
+    <h3> Liste des produits de la promo : {{prodDetailPromotion?.intituler}}</h3>
+    <table>
+      <tr>
+        <td>Produit</td><td>Ajouter</td>
+      </tr>
+      <tr>
+        <td>
+          <select [(ngModel)]="selectedProduit" >
+            <option disabled selected>Please select...</option>
+            <option *ngFor="let p of listProduit" [ngValue]="p">{{p.numProduit}}:{{p.intituler}}</option>
+          </select>
+        </td>
+        <td>
+          <input type="button" class="btn btn-danger" value="+"
+                 (click)="addProduitToPromotion(prodDetailPromotion)" />  prod{{produit?.NumProduit}}
+        </td>
+
+      </tr>
+    </table>
+    <table class="table table-striped" border="1">
+      <thead>
+      <tr>
+        <th>Numero Produit</th><th>Intituler</th><th>Description</th>
+        <th>Prix</th>
+        <th>Operation</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let prod of prodDetailPromotion?.listeProduit">
+        <td>{{prod.numProduit}}</td>
+        <td>{{prod.intituler}}</td><td>{{prod.description}}</td>
+        <td>{{prod.prix}}</td>
+        <td>
+          <input type="button" class="btn btn-danger" value="X" (click)="removeProduitFromPromotion(prodDetailPromotion,prod)"  />
+        </td>
+      </tr>
+      </tbody>
+  </table>
+</div>
+</div>
+
+
+<div >
+  <h3>Nouvelle promotion</h3>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Intituler:</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="promotion.intituler">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Description:</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"placeholder="Description" [(ngModel)]="promotion.description">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Date debut:</label>
+    <div class="col-md-8">
+      <input type="date" class="form-control" placeholder="Date debut" [(ngModel)]="promotion.dateDebut">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Date fin:</label>
+    <div class="col-md-8">
+      <input type="date" class="form-control" placeholder="Date fin" [(ngModel)]="promotion.dateFin">
+    </div>
+  </div>
+  <div class="form-group">
+    <label class="col-md-4 control-label">Taux:</label>
+    <div class="col-md-8">
+      <input type="text" class="form-control"  placeholder="Taux" [(ngModel)]="promotion.taux">
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionPromotion()" />
+    <input type="button"  class="form-control btn-space" value="Annuler" (click)="Annuler()" />
+  </div>
+</div>
+
+

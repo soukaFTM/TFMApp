@@ -1,0 +1,83 @@
+<div>
+  <h3> Liste des produits </h3>
+ <!-- Chercher un produit -->
+  <div>
+    <label>mot cle :</label>
+    <input type="text" [(ngModel)]="motCle"/>
+    <button (click)=" newSearch();searchProduits()">Chercher</button>
+  </div>
+  <!-- Lister les produits -->
+  <div>
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>Numero Produit</th><th>Type</th><th>Intituler</th><th>Description</th>
+      <th>Prix</th><th>Oppertaion</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let p of pageProduits">
+      <td>{{p.numProduit}}</td>
+      <td>{{p.typeProduit?.intituler}}</td>
+
+      <td>{{p.intituler}}</td><td>{{p.description}}</td>
+      <td>{{p.prix}}</td>
+      <td>
+        <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProduit(p)" />
+        <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteProduit(p.numProduit)" />
+      </td>
+
+    </tr>
+    </tbody>
+  </table>
+    <ul class ="nav nav-pillis">
+
+      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- gérer un produit -->
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Nouveau Produit </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-md-4 control-label">type Produit:</label>
+        <div class="col-md-8">
+
+          <select [(ngModel)]="produit.typeProduit" >
+            <option disabled selected>Please select...</option>
+            <option *ngFor="let type of typeProduits" [ngValue]="type" >{{type.intituler}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Intituler:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="produit.intituler">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Description:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control"placeholder="Description" [(ngModel)]="produit.description">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Prix:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control"  placeholder="Prix" [(ngModel)]="produit.prix">
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionProduit()" />
+        <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
+      </div>
+    </div>
+  </div>
+</div>
+
