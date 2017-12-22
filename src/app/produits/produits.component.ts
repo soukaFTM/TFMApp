@@ -19,6 +19,7 @@ export class ProduitsComponent implements OnInit {
   produit:Produit=new Produit();
   action:string="Sauvgarder";
 
+
   constructor(private http:Http,public produitService:ProduitsService) { }
 
   ngOnInit() {

@@ -1,11 +1,11 @@
+import {Commande} from "./model.Commande";
+
 export class Enfant {
 
-  codeClient: number ;
+  codeEnfant: number ;
   nom: string;
   prenom: string;
-  adress: string;
-  numTelePortable: string;
-  numTeleFixe: string;
-  ListEnfant: Enfant[] = null;
+  dateNaissance: string;
+  ListCommande: Commande[] = null;
 
 }

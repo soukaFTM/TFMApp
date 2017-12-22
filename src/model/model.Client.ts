@@ -1,7 +1,11 @@
-import {Commande} from "./model.Commande";
+import {Enfant} from "./model.Enfant";
 
 export class Client {
 
-  ListCommande: Commande[] = null;
+  codeClient: number;
+  adress: string;
+  numTelePortable: string;
+  numTeleFixe: string;
+  ListEnfant: Enfant[] = null;
 
 }

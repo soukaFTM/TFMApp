@@ -17,6 +17,7 @@ const appRoutes:Routes = [
   {path : 'produits' , component: ProduitsComponent},
   {path : 'pack' , component: PackComponent},
   {path: 'promotions', component: PromotionsComponent},
+  {path: 'clients', component: ClientsComponent},
   {path: '' , redirectTo :'/produits' , pathMatch:'full'}
 ];
 
