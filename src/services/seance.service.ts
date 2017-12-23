@@ -17,7 +17,7 @@ export class  SeanceService
         .map(resp=>resp.json());
 
   }
-  saveSeance(seance:Seance,type:string)
+  saveSeance(seance:Seance)
   {
     return this.http.post("http://localhost:8080/saveSeance",seance)//,Seance.ListSeance
       .map(resp=>resp.json());

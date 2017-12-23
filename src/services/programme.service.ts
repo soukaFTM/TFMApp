@@ -20,7 +20,7 @@ export class  ProgrammeService
         .map(resp=>resp.json());
 
   }
-  saveProgrammes(programme:Programme,type:string)
+  saveProgramme(programme:Programme)
   {
       return this.http.post("http://localhost:8080/saveProgramme",programme)//,Programme.ListProgramme
         .map(resp=>resp.json());

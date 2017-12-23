@@ -1,8 +1,27 @@
-<p> Techno futur maroc </p>
-<div>
-  <button routerLink="/produits"> Produits </button>
-  <button routerLink="/promotions"> Promotions </button>
-  <button routerLink="/pack"> Packs </button>
-  <button routerLink="/clients"> Clients </button>
+<section class="menu-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="navbar-collapse collapse ">
+          <div id="menu-top" class="nav navbar-nav navbar-right">
+            <button routerLink="/produits"> Produits </button>
+            <button routerLink="/promotions"> Promotions </button>
+            <button routerLink="/pack"> Packs </button>
+            <button routerLink="/clients"> Clients </button>
+            <button routerLink="/formateurs"> Formateurs </button>
+            <button routerLink="/programmes"> Programmes </button>
+            <button routerLink="/seances"> Seances </button>
+            <button routerLink="/commandes"> Commandes </button>
+
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+<div class="content-wrapper">
+  <div class="container">
+     <router-outlet></router-outlet>
+  </div>
 </div>
-<router-outlet></router-outlet>

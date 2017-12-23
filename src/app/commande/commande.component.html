@@ -1,0 +1,53 @@
+
+
+
+<!-- gérer un Commande -->
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Nouveau Commande </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-md-4 control-label">Intituler:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Commande.intituler">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionCommande()" />
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div>
+  <h3> Liste des Commandes </h3>
+  <!-- Lister les Commandes -->
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Numero Commande </th>
+        <th>Oppertaion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of pageCommandes">
+        <td>{{p.codeCommande}}</td>
+        <td>
+          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateCommande(p)" />
+          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteCommande(p.numCommande)" />
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <ul class ="nav nav-pillis">
+
+      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+      </li>
+    </ul>
+  </div>
+</div>

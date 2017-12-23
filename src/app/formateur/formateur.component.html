@@ -1,0 +1,51 @@
+<div>
+  <h3> Liste des Formateurs </h3>
+  <!-- Lister les Formateurs -->
+  <div>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Numero Formateur </th>
+        <th>Oppertaion</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of pageFormateurs">
+        <td>{{p.codeFormateur}}</td>
+        <td>
+          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateFormateur(p)" />
+          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteFormateur(p.numFormateur)" />
+        </td>
+
+      </tr>
+      </tbody>
+    </table>
+    <ul class ="nav nav-pillis">
+
+      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+<!-- gérer un Formateur -->
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Nouveau Formateur </div>
+    <div class="panel-body">
+      <div class="form-group">
+        <label class="col-md-4 control-label">Intituler:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.intituler">
+        </div>
+      </div>
+
+      <div class="form-group">
+        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionFormateur()" />
+      </div>
+    </div>
+  </div>
+</div>
+

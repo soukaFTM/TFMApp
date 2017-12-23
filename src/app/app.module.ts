@@ -13,12 +13,24 @@ import { PackComponent } from './pack/pack.component';
 import {PacksService} from "../services/pack.service";
 import { ClientsComponent } from './clients/clients.component';
 import {ClientService} from "../services/client.service";
+import { FormateurComponent } from './formateur/formateur.component';
+import { ProgrammeComponent } from './programme/programme.component';
+import {FormateurService} from "../services/formateur.service";
+import {SeanceService} from "../services/seance.service";
+import {ProgrammeService} from "../services/programme.service";
+import { SeanceComponent } from './seance/seance.component';
+import { CommandeComponent } from './commande/commande.component';
+import {CommandeService} from "../services/commande.service";
 
 const appRoutes:Routes = [
   {path : 'produits' , component: ProduitsComponent},
   {path : 'pack' , component: PackComponent},
   {path: 'promotions', component: PromotionsComponent},
   {path: 'clients', component: ClientsComponent},
+  {path: 'formateurs', component: FormateurComponent},
+  {path: 'programmes', component: ProgrammeComponent},
+  {path: 'seances', component: SeanceComponent},
+  {path: 'commandes', component: CommandeComponent},
   {path: '' , redirectTo :'/produits' , pathMatch:'full'}
 ];
 
@@ -28,13 +40,17 @@ const appRoutes:Routes = [
     ProduitsComponent,
     PromotionsComponent,
     PackComponent,
-    ClientsComponent
+    ClientsComponent,
+    FormateurComponent,
+    ProgrammeComponent,
+    SeanceComponent,
+    CommandeComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(appRoutes),HttpModule,
     FormsModule
   ],
-  providers: [ProduitsService,PromotionsService,PacksService,ClientService],
+  providers: [ProduitsService,PromotionsService,PacksService,ClientService,FormateurService,SeanceService,ProgrammeService,CommandeService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

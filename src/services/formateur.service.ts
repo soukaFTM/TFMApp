@@ -18,7 +18,7 @@ export class  FormateurService
         .map(resp=>resp.json());
 
   }
-  saveFormateur(formateur:Formateur,type:string)
+  saveFormateur(formateur:Formateur)
   {
     return this.http.post("http://localhost:8080/saveFormateur",formateur)//,Formateur.ListFormateur
       .map(resp=>resp.json());

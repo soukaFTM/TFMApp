@@ -1,54 +1,138 @@
-<div>
-  <h3> Liste des clients</h3>
-  <!-- Chercher un client -->
-  <div>
-    potentiel <input type="checkbox" name="typeClient" [ngModel]="typeClientP" >
-    Effectif <input type="checkbox" name="typeClient" [ngModel]="typeClientE" >
-    Physique <input type="checkbox" name="typeClient" [ngModel]="typeClientPH" >
-    Morale <input type="checkbox" name="typeClient" [ngModel]="typeClientM" >
-  </div>
-  <!-- Lister les clients -->
-  <div>
-    <table class="table table-striped" border="1">
-      <thead>
-      <tr>
-        <th>code Client</th><th>CIN</th><th>Nom</th><th>Statut juridique</th>
-        <th>Tele portable</th><th>Tele fixe</th><th>Adresse</th>
-        <th>Operations</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let p of pageClients">
-        <td>{{p.codeClient}}</td>
-        <td>{{p.CIN}}</td>
-        <td>{{p.nom}} {{p.prenom}} {{p.nomClient}}</td>
-        <td>{{p.statutJuridique}}</td>
-        <td>{{p.numTeleFixe}}</td>
-        <td>{{p.numTelePortable}}</td>
-        <td>{{p.adress}}</td>
-        <td>
-          <input type="button" class="btn btn-warning" value="Lister Enfants" (click)="GetCurrentClient(p)" />
-          <input  type="button" class="btn btn-warning" value="Lister commande" (click)="GetCurrentClient(p)" />
-          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateClient(p)" />
-          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteClient(p.numClient)" />
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-    <ul class ="nav nav-pillis">
-
-      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-      </li>
-    </ul>
+<div class="row">
+  <div class="col-md-12">
+    <h4 class="page-head-line">Liste des clients</h4>
   </div>
 </div>
+<!-- Clients -->
+<div class="row">
+  <div class="panel panel-default">
+    <div class="panel-heading">
+      Les clients
+    </div>
+    <div class="panel-body">
+      <!-- Chercher un client -->
+      <div>
+        potentiel <input type="checkbox" name="typeClient" [ngModel]="typeClientP" >
+        Effectif <input type="checkbox" name="typeClient" [ngModel]="typeClientE" >
+        Physique <input type="checkbox" name="typeClient" [ngModel]="typeClientPH" >
+        Morale <input type="checkbox" name="typeClient" [ngModel]="typeClientM" >
+      </div>
+      <!-- Lister les clients -->
+      <div>
+        <table class="table table-striped"  >
+          <thead>
+          <tr>
+            <th>code Client</th><th>CIN</th><th>Nom</th><th>Statut juridique</th>
+            <th>Tele portable</th><th>Tele fixe</th><th>Adresse</th>
+            <th>Operations</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let p of pageClients">
+            <td>{{p.codeClient}}</td>
+            <td>{{p.CIN}}</td>
+            <td>{{p.nom}} {{p.prenom}} {{p.nomClient}}</td>
+            <td>{{p.statutJuridique}}</td>
+            <td>{{p.numTeleFixe}}</td>
+            <td>{{p.numTelePortable}}</td>
+            <td>{{p.adress}}</td>
+            <td>
+              <input type="button" class="btn btn-warning" value="Lister Enfants" (click)="GetCurrentClient(p)" />
+              <input  type="button" class="btn btn-warning" value="Lister commande" (click)="GetCurrentClient(p)" />
+              <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateClient(p)" />
+              <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteClient(p.numClient)" />
+            </td>
 
-<!-- Enfant d'un client -->
+          </tr>
+          </tbody>
+        </table>
+        <ul class ="nav nav-pillis">
 
+          <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+            <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <!-- gérer un Client -->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Nouveau Client </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-md-4 control-label">type Client: </label>
+          <div class="col-md-8">
+
+            <select [(ngModel)]="typeNewClient" (click)="test">
+              <option disabled selected>Please select...</option>
+              <option value="P"> Physique </option>
+              <option value="M"> Moral </option>
+            </select>
+          </div>
+        </div>
+        <div *ngIf="typeNewClient=='P'" class="form-group">
+          <label class="col-md-4 control-label">Nom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nom">
+          </div>
+        </div>
+        <div *ngIf="typeNewClient=='P'" class="form-group">
+          <label class="col-md-4 control-label">CIN:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="cin" [(ngModel)]="client.CIN">
+          </div>
+        </div>
+        <div *ngIf="typeNewClient=='P'" class="form-group">
+          <label class="col-md-4 control-label">Prenom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="client.prenom">
+          </div>
+        </div>
+        <div *ngIf="typeNewClient=='M'" class="form-group">
+          <label class="col-md-4 control-label">NomC:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nomClient">
+          </div>
+        </div>
+        <div *ngIf="typeNewClient=='M'" class="form-group">
+          <label class="col-md-4 control-label">statut Juridique:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.statutJuridique">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Adress:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="adress" [(ngModel)]="client.adress">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Tele portable:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"placeholder="numTelePortable" [(ngModel)]="client.numTelePortable">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Tele Fixe:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"placeholder="numTeleFixe" [(ngModel)]="client.numTeleFixe">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="button" id="btnSaveClient" class="form-control btn-space" value="Sauvgarder" (click)="gestionClient()" />
+          <input type="button"  class="form-control btn-space" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+  <!-- Enfant d'un client -->
+<div class="row">
 <div>
-  <table class="table table-striped" border="1">
+  <table class="table table-striped"  >
     <thead>
     <tr>
       <th>code Enfant</th><th>Nom Complet</th><th>Date Naissance</th>
@@ -78,13 +162,49 @@
   </ul>
 </div>
 
-<!-- Commande d'un client -->
+  <!-- gérer un Enfant -->
+  <div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Nouveau Enfant du Client {{selectedClient.nom}} {{selectedClient.prenom}} </div>
+      <div class="panel-body">
 
+        <div  class="form-group">
+          <label class="col-md-4 control-label">Nom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="enfant.nom">
+          </div>
+        </div>
+
+        <div  class="form-group">
+          <label class="col-md-4 control-label">Prenom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="enfant.prenom">
+          </div>
+        </div>
+        <div  class="form-group">
+          <label class="col-md-4 control-label">Date de naissance:</label>
+          <div class="col-md-8">
+            <input type="date" class="form-control"  placeholder="dateNaissance" [(ngModel)]="enfant.dateNaissance">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <input type="button" id="btnSaveEnfant" class="form-control btn-space" value="Sauvgarder" (click)="gestionEnfant()" />
+          <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!-- Commande d'un client -->
+<div class="row">
 <div >
 
     <div *ngFor="let e of selectedClient.listEnfant">
       <p>{{e.codeEnfant}}{{e.nom}} {{e.prenom}}</p>
-        <table border="1">
+        <table  >
           <tr>
             <td>Code Commande</td>
             <td>date Commande</td>
@@ -112,119 +232,6 @@
     </li>
   </ul>
 </div>
-
-
-<!-- gérer un Client -->
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouveau Client </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="col-md-4 control-label">type Client: </label>
-        <div class="col-md-8">
-
-          <select [(ngModel)]="typeNewClient" (click)="test">
-            <option disabled selected>Please select...</option>
-            <option value="P"> Physique </option>
-            <option value="M"> Moral </option>
-          </select>
-        </div>
-      </div>
-      <div *ngIf="typeNewClient=='P'" class="form-group">
-        <label class="col-md-4 control-label">Nom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nom">
-        </div>
-      </div>
-      <div *ngIf="typeNewClient=='P'" class="form-group">
-        <label class="col-md-4 control-label">CIN:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="cin" [(ngModel)]="client.CIN">
-        </div>
-      </div>
-      <div *ngIf="typeNewClient=='P'" class="form-group">
-        <label class="col-md-4 control-label">Prenom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="client.prenom">
-        </div>
-      </div>
-      <div *ngIf="typeNewClient=='M'" class="form-group">
-        <label class="col-md-4 control-label">NomC:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nomClient">
-        </div>
-      </div>
-      <div *ngIf="typeNewClient=='M'" class="form-group">
-        <label class="col-md-4 control-label">statut Juridique:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.statutJuridique">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Adress:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="adress" [(ngModel)]="client.adress">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Tele portable:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"placeholder="numTelePortable" [(ngModel)]="client.numTelePortable">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Tele Fixe:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"placeholder="numTeleFixe" [(ngModel)]="client.numTeleFixe">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <input type="button" id="btnSaveClient" class="form-control btn-space" value="Sauvgarder" (click)="gestionClient()" />
-        <input type="button"  class="form-control btn-space" />
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
-<!-- gérer un Enfant -->
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouveau Enfant du Client {{selectedClient.nom}} {{selectedClient.prenom}} </div>
-    <div class="panel-body">
-
-      <div  class="form-group">
-        <label class="col-md-4 control-label">Nom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="enfant.nom">
-        </div>
-      </div>
-
-      <div  class="form-group">
-        <label class="col-md-4 control-label">Prenom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="enfant.prenom">
-        </div>
-      </div>
-      <div  class="form-group">
-        <label class="col-md-4 control-label">Date de naissance:</label>
-        <div class="col-md-8">
-          <input type="date" class="form-control"  placeholder="dateNaissance" [(ngModel)]="enfant.dateNaissance">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <input type="button" id="btnSaveEnfant" class="form-control btn-space" value="Sauvgarder" (click)="gestionEnfant()" />
-        <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
-      </div>
-    </div>
-  </div>
-</div>
-
-
-
 <!-- gérer une commande -->
 <div>
   <div class="panel panel-default">
@@ -258,5 +265,5 @@
     </div>
   </div>
 </div>
-
+</div>
 
