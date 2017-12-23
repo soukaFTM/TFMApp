@@ -7,5 +7,10 @@ export class Client {
   numTelePortable: string;
   numTeleFixe: string;
   ListEnfant: Enfant[] = null;
+  nomClient: string;
+  statutJuridique: string;
+  nom: string;
+  prenom: string;
+  CIN:string;
 
 }

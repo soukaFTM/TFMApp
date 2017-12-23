@@ -12,6 +12,7 @@ import {FormsModule} from "@angular/forms";
 import { PackComponent } from './pack/pack.component';
 import {PacksService} from "../services/pack.service";
 import { ClientsComponent } from './clients/clients.component';
+import {ClientService} from "../services/client.service";
 
 const appRoutes:Routes = [
   {path : 'produits' , component: ProduitsComponent},
@@ -33,7 +34,7 @@ const appRoutes:Routes = [
     BrowserModule, RouterModule.forRoot(appRoutes),HttpModule,
     FormsModule
   ],
-  providers: [ProduitsService,PromotionsService,PacksService],
+  providers: [ProduitsService,PromotionsService,PacksService,ClientService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

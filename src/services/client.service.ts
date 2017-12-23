@@ -7,26 +7,25 @@ import {Enfant} from "../model/model.Enfant";
 export class  ClientService
 {
   constructor(public  http:Http){}
-/*
-  getAllClients()
-  {
-    return this.http.get("http://localhost:8080/AllClients")
-      .map(resp=>resp.json());
-  }*/
+
   getClients(motCle:string,page:number,size:number)
   {
     if(motCle=="")
       return this.http.get("http://localhost:8080/PageClient?page="+page+"&size="+size)
         .map(resp=>resp.json());
-    /*else
+    else
       return this.http.get("http://localhost:8080/ChercherClient?mc="+motCle+"&page="+page+"&size="+size)
-        .map(resp=>resp.json());*/
+        .map(resp=>resp.json());
 
   }
-  saveClients(client:Client)
+  saveClients(client:Client,type:string)
   {
-    return this.http.post("http://localhost:8080/saveClient",client)//,client.Listclient
-      .map(resp=>resp.json());
+    if(type=="M")
+      return this.http.post("http://localhost:8080/saveClientMoral",client)//,client.Listclient
+         .map(resp=>resp.json());
+    else
+      return this.http.post("http://localhost:8080/saveClientPhysique",client)//,client.Listclient
+        .map(resp=>resp.json());
   }
   deleteClient(client:number)
   {
