@@ -1,7 +1,5 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
-import {Produit} from "../model/model.Produit";
-import {Formateur} from "../model/model.Formateur";
 import {Seance} from "../model/model.Seance";
 
 @Injectable()
