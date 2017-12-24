@@ -23,6 +23,7 @@
       <td>{{p.intituler}}</td><td>{{p.description}}</td>
       <td>{{p.prix}}</td>
       <td>
+        <input type="button" class="btn btn-warning" value="Detail" (click)="ShowDetailProduit(p)" />
         <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProduit(p)" />
         <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteProduit(p.numProduit)" />
       </td>
@@ -37,6 +38,85 @@
       </li>
     </ul>
   </div>
+</div>
+
+<div >
+  <h3> Liste des projet du produit : {{produitDetail?.intituler}}</h3>
+  <table>
+    <tr>
+      <td>projet</td><td>Ajouter</td>
+    </tr>
+    <tr>
+      <td>
+        <select [(ngModel)]="selectedProjet" >
+          <option disabled selected>Please select...</option>
+          <option *ngFor="let p of listProjet" [ngValue]="p">{{p.codeProjet}}:{{p.intituler}}</option>
+        </select>
+      </td>
+      <td>
+        <input type="button" class="btn btn-danger" value="+"
+               (click)="addProjetToProduit(produitDetail)" />
+      </td>
+
+    </tr>
+  </table>
+  <table class="table table-striped" border="1">
+    <thead>
+    <tr>
+      <th>Code projet</th><th>Intituler</th><th>Description</th>
+      <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let proj of produitDetail?.listProjet">
+      <td>{{proj.codeProjet}}</td>
+      <td>{{proj.intituler}}</td><td>{{proj.description}}</td>
+      <td>
+        <input type="button" class="btn btn-danger" value="X" (click)="removeProjetFromProduit(produitDetail,proj)"  />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+<div >
+  <h3> Liste des Competence du produit : {{produitDetail?.intituler}}</h3>
+  <table>
+    <tr>
+      <td>Competence</td><td>Ajouter</td>
+    </tr>
+    <tr>
+      <td>
+        <select [(ngModel)]="selectedCompetence" >
+          <option disabled selected>Please select...</option>
+          <option *ngFor="let p of listCompetence" [ngValue]="p">{{p.codeCompetence}}:{{p.intituler}}</option>
+        </select>
+      </td>
+      <td>
+        <input type="button" class="btn btn-danger" value="+"
+               (click)="addCompetenceToProduit(produitDetail)" />
+      </td>
+
+    </tr>
+  </table>
+  <table class="table table-striped" border="1">
+    <thead>
+    <tr>
+      <th>Code Competence</th><th>Intituler</th><th>Description</th>
+      <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let comp of produitDetail?.listCompetence">
+      <td>{{comp.codeCompetence}}</td>
+      <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
+      <td>
+        <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromProduit(produitDetail,comp)"  />
+      </td>
+    </tr>
+    </tbody>
+  </table>
 </div>
 
 

@@ -1,6 +1,8 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Produit} from "../model/model.Produit";
+import {Projet} from "../model/model.Projet";
+import {Competence} from "../model/model.Competence";
 
 @Injectable()
 export class  ProduitsService
@@ -43,4 +45,37 @@ export class  ProduitsService
       .map(resp=>resp.json());
 
   }
+  getCompetences()
+  {
+    return this.http.get("http://localhost:8080/competences")
+      .map(resp=>resp.json());
+
+  }
+  getProjets()
+  {
+    return this.http.get("http://localhost:8080/projets")
+      .map(resp=>resp.json());
+
+  }
+  addProjetToProduit(projet:Projet,numProduit:number)
+  {
+    return this.http.put("http://localhost:8080/addProjetToProduit/"+numProduit,projet)
+      .map(resp=>resp.json());
+  }
+  removeProjetFromProduit(numProduit:number,projet:Projet)
+  {
+    return this.http.put("http://localhost:8080/removeProjetFromProduit/"+numProduit,projet)
+      .map(resp=>resp.json());
+  }
+  addCompetenceToProduit(Competence:Competence,numProduit:number)
+  {
+    return this.http.put("http://localhost:8080/addCompetenceToProduit/"+numProduit,Competence)
+      .map(resp=>resp.json());
+  }
+  removeCompetenceFromProduit(numProduit:number,Competence:Competence)
+  {
+    return this.http.put("http://localhost:8080/removeCompetenceFromProduit/"+numProduit,Competence)
+      .map(resp=>resp.json());
+  }
+
 }

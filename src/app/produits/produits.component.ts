@@ -4,6 +4,8 @@ import "rxjs/add/operator/map"
 import {ProduitsService} from "../../services/produits.service";
 import {Produit} from "../../model/model.Produit";
 import {TypeProduit} from "../../model/model.TypeProduit";
+import {Competence} from "../../model/model.Competence";
+import {Projet} from "../../model/model.Projet";
 @Component({
   selector: 'app-produits',
   templateUrl: './produits.component.html',
@@ -19,12 +21,19 @@ export class ProduitsComponent implements OnInit {
   produit:Produit=new Produit();
   action:string="Sauvgarder";
 
+  listProjet:Array<Projet>;
+  listCompetence:Array<Competence>;
+  selectedCompetence:Competence;
+  selectedProjet:Projet;
+  produitDetail:Produit;
 
   constructor(private http:Http,public produitService:ProduitsService) { }
 
   ngOnInit() {
     this.searchProduits();
     this.getTypesProduits();
+    this.getCompetences();
+    this.getProjets();
   }
 
 
@@ -37,6 +46,26 @@ export class ProduitsComponent implements OnInit {
         console.log(err);
       })
   }
+  getProjets(){
+    this.produitService.getProjets()
+      .subscribe(data=>{
+        console.log("tpes"+data);
+        this.listProjet=data;
+      },err=>{
+        console.log(err);
+      })
+  }
+
+  getCompetences(){
+    this.produitService.getCompetences()
+      .subscribe(data=>{
+        console.log("tpes"+data);
+        this.listCompetence=data;
+      },err=>{
+        console.log(err);
+      })
+  }
+
 
   searchProduits(){
     this.produitService.getProduits(this.motCle,this.Currentpage,this.size)
@@ -94,6 +123,57 @@ export class ProduitsComponent implements OnInit {
     this.produitService.deleteProduit(id)
       .subscribe(data=>{
         console.log(data);
+        this.searchProduits();
+      },err=>{
+        console.log(err);
+      })
+  }
+
+  ShowDetailProduit(produit:Produit)
+  {
+    this.produitDetail=produit;
+  }
+
+  addProjetToProduit(produit:any)
+  {
+    return this.produitService.addProjetToProduit(this.selectedProjet,produit.numProduit)
+      .subscribe(data=>{
+        console.log(data);
+        this.produitDetail=data;
+        this.searchProduits();
+      },err=>{
+        console.log(err);
+      })
+  }
+  removeProjetFromProduit(produit:any,projet:Projet)
+  {
+    return this.produitService.removeProjetFromProduit(produit.numProduit,projet)
+      .subscribe(data=>{
+        console.log(data);
+        this.produitDetail=data;
+        this.searchProduits();
+      },err=>{
+        console.log(err);
+      })
+  }
+
+  addCompetenceToProduit(produit:any)
+  {
+    return this.produitService.addCompetenceToProduit(this.selectedCompetence,produit.numProduit)
+      .subscribe(data=>{
+        console.log(data);
+        this.produitDetail=data;
+        this.searchProduits();
+      },err=>{
+        console.log(err);
+      })
+  }
+  removeCompetenceFromProduit(produit:any,Competence:Competence)
+  {
+    return this.produitService.removeCompetenceFromProduit(produit.numProduit,Competence)
+      .subscribe(data=>{
+        console.log(data);
+        this.produitDetail=data;
         this.searchProduits();
       },err=>{
         console.log(err);
