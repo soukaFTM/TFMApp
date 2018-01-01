@@ -55,7 +55,7 @@
           <tbody>
           <tr *ngFor="let p of pageClients">
             <td>{{p.codeClient}}</td>
-            <td>{{p.CIN}}</td>
+            <td>{{p.cin}}</td>
             <td>{{p.nom}} {{p.prenom}} {{p.nomClient}}</td>
             <td>{{p.statutJuridique}}</td>
             <td>{{p.numTeleFixe}}</td>
@@ -105,7 +105,7 @@
         <div *ngIf="typeNewClient=='P'" class="form-group">
           <label class="col-md-4 control-label">CIN:</label>
           <div class="col-md-8">
-            <input type="text" class="form-control"  placeholder="cin" [(ngModel)]="client.CIN">
+            <input type="text" class="form-control"  placeholder="cin" [(ngModel)]="client.cin">
           </div>
         </div>
         <div *ngIf="typeNewClient=='P'" class="form-group">

@@ -11,7 +11,7 @@ export class  FormateurService
   getFormateurs(motCle:string,page:number,size:number)
   {
     if(motCle=="")
-      return this.http.get("http://localhost:8080/PageFormateur?page="+page+"&size="+size)
+      return this.http.get("http://localhost:8080/PageFormateurs?page="+page+"&size="+size)
         .map(resp=>resp.json());
     else
       return this.http.get("http://localhost:8080/ChercherFormateur?mc="+motCle+"&page="+page+"&size="+size)

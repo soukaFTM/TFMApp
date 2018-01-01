@@ -11,6 +11,6 @@ export class Client {
   statutJuridique: string;
   nom: string;
   prenom: string;
-  CIN:string;
+  cin:string;
 
 }

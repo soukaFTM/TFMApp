@@ -6,13 +6,24 @@
       <thead>
       <tr>
         <th>Numero Formateur </th>
+        <th>CIN </th>
+        <th>nom </th>
+        <th>prenom </th>
+        <th>Date debut de travail </th>
+        <th>type de contrat </th>
         <th>Oppertaion</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let p of pageFormateurs">
         <td>{{p.codeFormateur}}</td>
+        <td>{{p.cin}}</td>
+        <td>{{p.nom}}</td>
+        <td>{{p.prenom}}</td>
+        <td>{{p.datedebut}}</td>
+        <td>{{p.typedecontrat}}</td>
         <td>
+          <input type="button" class="btn btn-success" value="Suivi de paiement" (click)="GetUpdateFormateur(p)" />
           <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateFormateur(p)" />
           <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteFormateur(p.numFormateur)" />
         </td>
@@ -36,9 +47,33 @@
     <div class="panel-heading">Nouveau Formateur </div>
     <div class="panel-body">
       <div class="form-group">
-        <label class="col-md-4 control-label">Intituler:</label>
+        <label class="col-md-4 control-label">CIN:</label>
         <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.intituler">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.cin">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">nom:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.nom">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">prenom:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.prenom">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Date aumbauche:</label>
+        <div class="col-md-8">
+          <input type="date" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.datedebut">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Type de contrat:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.typedecontrat">
         </div>
       </div>
 

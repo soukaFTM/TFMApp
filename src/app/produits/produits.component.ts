@@ -24,7 +24,7 @@ export class ProduitsComponent implements OnInit {
   listProjet:Array<Projet>;
   listCompetence:Array<Competence>;
   selectedCompetence:Competence;
-  selectedProjet:Projet;
+  selectedProjet:any;
   produitDetail:Produit;
 
   constructor(private http:Http,public produitService:ProduitsService) { }
@@ -40,7 +40,6 @@ export class ProduitsComponent implements OnInit {
   getTypesProduits(){
     this.produitService.getTypeProduits()
       .subscribe(data=>{
-        console.log("tpes"+data);
         this.typeProduits=data;
       },err=>{
         console.log(err);
@@ -49,7 +48,6 @@ export class ProduitsComponent implements OnInit {
   getProjets(){
     this.produitService.getProjets()
       .subscribe(data=>{
-        console.log("tpes"+data);
         this.listProjet=data;
       },err=>{
         console.log(err);
@@ -59,7 +57,6 @@ export class ProduitsComponent implements OnInit {
   getCompetences(){
     this.produitService.getCompetences()
       .subscribe(data=>{
-        console.log("tpes"+data);
         this.listCompetence=data;
       },err=>{
         console.log(err);

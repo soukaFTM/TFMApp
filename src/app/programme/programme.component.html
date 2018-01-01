@@ -6,13 +6,22 @@
       <thead>
       <tr>
         <th>Numero Programme </th>
+        <th>Intituler Produit </th>
+        <th>nbr des inscrit </th>
+        <th>Date debut </th>
+        <th>Date Fin </th>
         <th>Oppertaion</th>
       </tr>
       </thead>
       <tbody>
       <tr *ngFor="let p of pageProgrammes">
         <td>{{p.codeProgramme}}</td>
+        <td>{{p.produit.intituler}}</td>
+        <td>{{p.nombreInscrit}}</td>
+        <td>{{p.dateDebut}}</td>
+        <td>{{p.dateFin}}</td>
         <td>
+          <input type="button" class="btn btn-warning" value="Liste des groupes" (click)="showProgrammeDetail(p)" />
           <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProgramme(p)" />
           <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteProgramme(p.numProgramme)" />
         </td>
@@ -30,15 +39,61 @@
 </div>
 
 
+<!-- Groupes -->
+<div >
+  <h3> Liste les groupes du programme : {{programmeDetail?.codeProgramme}}</h3>
+  <table class="table table-striped" >
+    <thead>
+    <tr>
+      <th>Code groupe</th>
+      <th>nombre des inscris</th>
+      <th>Jours</th>
+      <th>Horraire</th>
+      <th>Responsable</th>
+      <th>Operation</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let gr of programmeDetail?.listGroupe">
+      <td>{{gr.codeGroupe}}</td>
+      <td>{{gr.listEnfant.length}}</td>
+      <td>{{gr.jour}}</td>
+      <td>{{gr.heureDebut}} - {{gr.heureFin}}</td>
+      <td>{{gr.responsable?.nom}} {{gr.responsable?.prenom}} </td>
+      <td>
+        <input type="button" class="btn " value="Detail" (click)="DetailGroupe(gr.codeGroupe)"  />
+      </td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+
+
 <!-- gérer un Programme -->
 <div>
   <div class="panel panel-default">
     <div class="panel-heading">Nouveau Programme </div>
     <div class="panel-body">
       <div class="form-group">
-        <label class="col-md-4 control-label">Intituler:</label>
+        <label class="col-md-4 control-label">Produit:</label>
         <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Programme.intituler">
+          <select [(ngModel)]="Programme.produit" >
+            <option disabled selected>Please select...</option>
+            <option *ngFor="let p of listProduit" [ngValue]="p">{{p.numProduit}}:{{p.intituler}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Date debut:</label>
+        <div class="col-md-8">
+          <input type="date" class="form-control" placeholder="Intituler" [(ngModel)]="Programme.dateDebut">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Date Fin:</label>
+        <div class="col-md-8">
+          <input type="date" class="form-control" placeholder="Intituler" [(ngModel)]="Programme.dateFin">
         </div>
       </div>
 
@@ -48,4 +103,45 @@
     </div>
   </div>
 </div>
+
+
+ <!-- gérer un groupe -->
+ <div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Nouveau Groupe du programme {{programmeDetail.codeProgramme}} </div>
+    <div class="panel-body">
+
+      <div  class="form-group">
+        <label class="col-md-4 control-label">Heure Debut:</label>
+        <div class="col-md-8">
+          <input type="time" class="form-control"  placeholder="hDebut" [(ngModel)]="groupe.heureDebut">
+        </div>
+      </div>
+
+      <div  class="form-group">
+        <label class="col-md-4 control-label">Heure Fin:</label>
+        <div class="col-md-8">
+          <input type="time" class="form-control"  placeholder="hFin" [(ngModel)]="groupe.heureFin">
+        </div>
+      </div>
+      <div  class="form-group">
+        <label class="col-md-4 control-label">jour:</label>
+        <div class="col-md-8">
+          <input type="text" class="form-control"  placeholder="jours" [(ngModel)]="groupe.jour">
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-4 control-label">Responsable:</label>
+        <div class="col-md-8">
+          <select [(ngModel)]="groupe.responsable" >
+            <option disabled selected>Please select...</option>
+            <option *ngFor="let f of listResponsable" [ngValue]="f">{{f.codeFormateur}}:{{f.nom}} {{f.prenom}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <input type="button" id="btnSavegroupe" class="form-control btn-space" value="Sauvgarder" (click)="gestionGroupe()" />
+      </div>
+    </div>
+  </div>
 

@@ -1,8 +1,10 @@
+import {Produit} from "./model.Produit";
+
 export class Projet {
 
-  CodeProjet: number ;
+  codeProjet: number ;
   Intituler: string;
-  Description: string;
+  description: string;
   DateCreation: string;
   DateModification: string;
   DateSuppression: string;

@@ -4,6 +4,7 @@ import {Programme} from "../model/model.Programme";
 import {Produit} from "../model/model.Produit";
 import {Formateur} from "../model/model.Formateur";
 import {Seance} from "../model/model.Seance";
+import {Groupe} from "../model/model.Groupe";
 
 @Injectable()
 export class  ProgrammeService
@@ -22,7 +23,11 @@ export class  ProgrammeService
   }
   saveProgramme(programme:Programme)
   {
+    if(programme.produit.listProduit==null)
       return this.http.post("http://localhost:8080/saveProgramme",programme)//,Programme.ListProgramme
+        .map(resp=>resp.json());
+    else
+    return this.http.post("http://localhost:8080/saveProgrammePack",programme)//,Programme.ListProgramme
         .map(resp=>resp.json());
 
   }
@@ -30,26 +35,20 @@ export class  ProgrammeService
   {
     return this.http.delete("http://localhost:8080/Programmes/"+programme);
   }
-  addProduitToProgramme(produit:Produit,numProgramme:number)
+  addGroupeToProgramme(groupe:Groupe,numProgramme:number)
   {
-
-    console.log("in service ");
-    return this.http.put("http://localhost:8080/addProduitToProgramme/"+numProgramme,produit)
+    return this.http.put("http://localhost:8080/addGroupeToProgramme/"+numProgramme,groupe)
       .map(resp=>resp.json());
   }
-  addFormateurToProgramme(formateur:Formateur,numProgramme:number)
-  {
 
-    console.log("in service ");
-    return this.http.put("http://localhost:8080/addEnfantToProgramme/"+numProgramme,formateur)
-      .map(resp=>resp.json());
-  }
-  addSeanceToProgramme(seance:Seance,numProgramme:number)
+  getAllResponsableForProgramme(produit:number)
   {
+    return this.http.get("http://localhost:8080/getAllResponsableForProgramme/"+produit)
+        .map(resp=>resp.json());
 
-    console.log("in service ");
-    return this.http.put("http://localhost:8080/addSeanceToProgramme/"+numProgramme,seance)
-      .map(resp=>resp.json());
   }
+
+  /*
+ */
 
 }

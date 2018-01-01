@@ -1,0 +1,101 @@
+<div>
+  <div class="panel panel-default">
+    <div class="panel-heading">Detail du groupe  {{groupe?.codeGroupe}} </div>
+    <div class="panel-body">
+      <table class="table table-striped" >
+        <thead>
+        <tr>
+          <th>nombre des inscris</th>
+          <th>Jour</th>
+          <th>Horraire</th>
+          <th>Responsable</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr >
+          <td>{{groupe?.listEnfant?.length}}</td>
+          <td>{{groupe?.jour}}</td>
+          <td>{{groupe?.heureDebut}} - {{groupe?.heureFin}}</td>
+          <td>{{groupe?.responsable?.nom}} {{groupe?.responsable?.prenom}} </td>
+        </tr>
+        </tbody>
+      </table>   
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-4">
+      <div class="panel panel-default">
+          <div class="panel-heading">Liste des etudiants </div>
+          <div class="panel-body">
+            <table class="table table-striped" >
+              <thead>
+              <tr>
+                <th>Nom</th>
+                <th>Prenom</th>
+                <th>date de naissance</th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of groupe?.listEnfant">
+                <td>{{e.nom}}</td>
+                <td>{{e.prenom}}</td>
+                <td>{{e.dateNaissance}}</td>
+              </tr>
+              </tbody>
+            </table>    </div>
+        </div>
+  </div>
+  <div class="col-md-8">
+      <div class="panel panel-default">
+        <div class="panel-heading">Liste des projets </div>
+        <div class="panel-body">
+            <div>
+                <div class="form-group">
+                    <label class="col-md-4 control-label">Lancer projet:</label>
+                    <div class="col-md-8">
+                        <select [(ngModel)]="selectedProjet" >
+                            <option disabled selected>Please select...</option>
+                            <option *ngFor="let p of listeProjets" [ngValue]="p">{{p.codeProjet}}:{{p.intituler}}</option>
+                        </select>
+                        <input type="button" class="btn btn-danger" value="+" (click)="addProjettoGroupe()" />
+                    </div>
+                  </div>
+
+
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>Numero Projet </th>
+                    <th>Intituler</th>
+                    <th>Evaluation Global</th>
+                    <th>Remarque</th>
+                    <th>Oppertaion</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let p of groupe?.listProjet">
+                      <td>{{p.codeRealisation}}</td>
+                      <td>{{p.projet.intituler}}</td>
+                      <td>{{p.evaluationGlobal}}</td>
+                      <td>{{p.remarque}}</td>
+                      <td >
+                        <input type="button" class="btn btn-warning" value="Detail du projet" (click)="GetRealisationProjet(p)" />
+                        
+                      </td>
+            
+                  </tr>
+                  </tbody>
+                </table>
+                <ul class ="nav nav-pillis">
+            
+                  <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+                    <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+                  </li>
+                </ul>
+              </div>
+         
+        </div>
+      </div>
+  </div>
+</div>

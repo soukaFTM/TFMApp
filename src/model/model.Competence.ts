@@ -1,3 +1,5 @@
+import {Produit} from "./model.Produit";
+
 export class Competence {
 
   CodeCompetence: number ;

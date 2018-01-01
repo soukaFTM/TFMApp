@@ -21,6 +21,15 @@ import {ProgrammeService} from "../services/programme.service";
 import { SeanceComponent } from './seance/seance.component';
 import { CommandeComponent } from './commande/commande.component';
 import {CommandeService} from "../services/commande.service";
+import { GroupeComponent } from './groupe/groupe.component';
+import { RealisationProjetComponent } from './realisation-projet/realisation-projet.component';
+import { CompetenceComponent } from './competence/competence.component';
+import { ProjetComponent } from './projet/projet.component';
+import { CompetenceService } from '../services/competence.service';
+import { ProjetService } from '../services/projet.service';
+import { GroupeService } from '../services/groupe.service';
+import { RealisationProjet } from '../model/model.RealisationProjet';
+import { RealisationProjetService } from '../services/realisationProjet.service';
 
 const appRoutes:Routes = [
   {path : 'produits' , component: ProduitsComponent},
@@ -31,6 +40,9 @@ const appRoutes:Routes = [
   {path: 'programmes', component: ProgrammeComponent},
   {path: 'seances', component: SeanceComponent},
   {path: 'commandes', component: CommandeComponent},
+  {path: 'competences', component: CompetenceComponent},
+  {path: 'projets', component: ProjetComponent},
+  {path: 'groupe/:id', component: GroupeComponent},
   {path: '' , redirectTo :'/produits' , pathMatch:'full'}
 ];
 
@@ -44,13 +56,18 @@ const appRoutes:Routes = [
     FormateurComponent,
     ProgrammeComponent,
     SeanceComponent,
-    CommandeComponent
+    CommandeComponent,
+    GroupeComponent,
+    RealisationProjetComponent,
+    CompetenceComponent,
+    ProjetComponent
   ],
   imports: [
     BrowserModule, RouterModule.forRoot(appRoutes),HttpModule,
     FormsModule
   ],
-  providers: [ProduitsService,PromotionsService,PacksService,ClientService,FormateurService,SeanceService,ProgrammeService,CommandeService],
+  providers: [ProduitsService,PromotionsService,PacksService,ClientService,FormateurService,
+    SeanceService,ProgrammeService,CommandeService,CompetenceService,ProjetService,GroupeService,RealisationProjetService],
   bootstrap: [AppComponent]
 })
 export class AppModule {
