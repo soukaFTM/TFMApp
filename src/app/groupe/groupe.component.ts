@@ -31,6 +31,8 @@ export class GroupeComponent implements OnInit {
     this.router.navigate(["realisationProjet",id]);
   }
 
+  
+
   GetGroupe(){
     this.GroupeService.getGroupe(this.idGroupe)
       .subscribe(data=>{

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Http} from "@angular/http";
 import {FormateurService} from "../../services/formateur.service";
 import {Formateur} from "../../model/model.Formateur";
+import { Competence } from '../../model/model.Competence';
+import { CompetenceService } from '../../services/competence.service';
 
 @Component({
   selector: 'app-formateur',
@@ -16,12 +18,15 @@ export class FormateurComponent implements OnInit {
   pages:Array<number>;
   Formateur:Formateur=new Formateur();
   action:string="Sauvgarder";
+  selectedCompetence:Competence;
+  listCompetence:Array<Competence>;
 
 
-  constructor(private http:Http,public FormateurService:FormateurService) { }
+  constructor(private http:Http,public FormateurService:FormateurService, public competenceService:CompetenceService) { }
 
   ngOnInit() {
     this.searchFormateurs();
+    this.getCompetences();
   }
 
   searchFormateurs(){
@@ -34,6 +39,16 @@ export class FormateurComponent implements OnInit {
         console.log(err);
       })
   }
+
+  getCompetences(){
+    this.competenceService.getAllCompetences()
+      .subscribe(data=>{
+        this.listCompetence=data;
+      },err=>{
+        console.log(err);
+      })
+  }
+
   newSearch(){
     this.Currentpage=0;
   }
@@ -80,6 +95,30 @@ export class FormateurComponent implements OnInit {
     this.FormateurService.deleteFormateur(id)
       .subscribe(data=>{
         console.log(data);
+        this.searchFormateurs();
+      },err=>{
+        console.log(err);
+      })
+  }
+
+  addCompetenceToFormateur(Formateur:any)
+  {
+    return this.FormateurService.addCompetenceToFormateur(this.selectedCompetence,Formateur.codeFormateur)
+      .subscribe(data=>{
+        console.log(data);
+        this.Formateur=data;
+        this.searchFormateurs();
+      },err=>{
+        console.log(err);
+      })
+  }
+  removeCompetenceFromFormateur(formateur:any,Competence:Competence)
+  {
+    alert(formateur.codeFormateur)
+    return this.FormateurService.removeCompetenceFromFormateur(formateur.codeFormateur,Competence)
+      .subscribe(data=>{
+        console.log(data);
+        this.Formateur=data;
         this.searchFormateurs();
       },err=>{
         console.log(err);

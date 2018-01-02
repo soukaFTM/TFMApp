@@ -95,7 +95,7 @@
       </td>
       <td>
         <input type="button" class="btn btn-danger" value="+"
-               (click)="addCompetenceToProduit(produitDetail)" />
+               (click)="addCompetenceToProduit(Formateur)" />
       </td>
 
     </tr>
@@ -112,7 +112,7 @@
       <td>{{comp.codeCompetence}}</td>
       <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
       <td>
-        <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromProduit(produitDetail,comp)"  />
+        <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromFormateur(Formateur,comp)"  />
       </td>
     </tr>
     </tbody>

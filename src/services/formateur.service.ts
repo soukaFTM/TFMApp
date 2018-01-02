@@ -1,6 +1,7 @@
 import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Formateur} from "../model/model.Formateur";
+import { Competence } from "../model/model.Competence";
 
 
 @Injectable()
@@ -29,5 +30,17 @@ export class  FormateurService
     return this.http.delete("http://localhost:8080/Formateurs/"+formateur);
   }
 
+
+  addCompetenceToFormateur(Competence:Competence,codeFormateur:number)
+  {
+    return this.http.put("http://localhost:8080/addCompetenceToFormateur/"+codeFormateur,Competence)
+      .map(resp=>resp.json());
+  }
+
+  removeCompetenceFromFormateur(codeFormateur:number,Competence:Competence)
+  {
+    return this.http.put("http://localhost:8080/removeCompetenceFromFormateur/"+codeFormateur,Competence)
+      .map(resp=>resp.json());
+  }
 
 }

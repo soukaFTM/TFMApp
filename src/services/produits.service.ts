@@ -45,18 +45,7 @@ export class  ProduitsService
       .map(resp=>resp.json());
 
   }
-  getCompetences()
-  {
-    return this.http.get("http://localhost:8080/competences")
-      .map(resp=>resp.json());
 
-  }
-  getProjets()
-  {
-    return this.http.get("http://localhost:8080/projets")
-      .map(resp=>resp.json());
-
-  }
   addProjetToProduit(projet:Projet,numProduit:number)
   {
     return this.http.put("http://localhost:8080/addProjetToProduit/"+numProduit,projet)

@@ -7,6 +7,14 @@ export class  CompetenceService
 {
   constructor(public  http:Http){}
 
+  
+  getAllCompetences()
+  {
+    return this.http.get("http://localhost:8080/competences")
+      .map(resp=>resp.json());
+
+  }
+
   getCompetences(motCle:string,page:number,size:number)
   {
     if(motCle=="")

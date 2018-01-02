@@ -9,6 +9,4 @@ export class RealisationProjet {
   remarque: string;
   ListSeance: Seance[] = null;
 
-
-
 }

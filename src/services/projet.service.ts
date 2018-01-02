@@ -7,6 +7,13 @@ export class  ProjetService
 {
   constructor(public  http:Http){}
 
+  getAllProjets()
+  {
+    return this.http.get("http://localhost:8080/projets")
+      .map(resp=>resp.json());
+
+  }
+
   getProjets(motCle:string,page:number,size:number)
   {
     if(motCle=="")

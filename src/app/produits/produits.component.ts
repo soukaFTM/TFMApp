@@ -6,6 +6,8 @@ import {Produit} from "../../model/model.Produit";
 import {TypeProduit} from "../../model/model.TypeProduit";
 import {Competence} from "../../model/model.Competence";
 import {Projet} from "../../model/model.Projet";
+import { CompetenceService } from '../../services/competence.service';
+import { ProjetService } from '../../services/projet.service';
 @Component({
   selector: 'app-produits',
   templateUrl: './produits.component.html',
@@ -27,7 +29,8 @@ export class ProduitsComponent implements OnInit {
   selectedProjet:any;
   produitDetail:Produit;
 
-  constructor(private http:Http,public produitService:ProduitsService) { }
+  constructor(private http:Http,public produitService:ProduitsService,public competenceService:CompetenceService
+    ,public projetService:ProjetService) { }
 
   ngOnInit() {
     this.searchProduits();
@@ -46,7 +49,7 @@ export class ProduitsComponent implements OnInit {
       })
   }
   getProjets(){
-    this.produitService.getProjets()
+    this.projetService.getAllProjets()
       .subscribe(data=>{
         this.listProjet=data;
       },err=>{
@@ -55,7 +58,7 @@ export class ProduitsComponent implements OnInit {
   }
 
   getCompetences(){
-    this.produitService.getCompetences()
+    this.competenceService.getAllCompetences()
       .subscribe(data=>{
         this.listCompetence=data;
       },err=>{

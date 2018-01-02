@@ -43,7 +43,9 @@ const appRoutes:Routes = [
   {path: 'competences', component: CompetenceComponent},
   {path: 'projets', component: ProjetComponent},
   {path: 'groupe/:id', component: GroupeComponent},
+  {path: 'realisationProjet/:id', component: RealisationProjetComponent},
   {path: '' , redirectTo :'/produits' , pathMatch:'full'}
+  
 ];
 
 @NgModule({
