@@ -1,4 +1,5 @@
 import {Enfant} from "./model.Enfant";
+import { Presence } from "./model.Presence.";
 
 export class Seance {
 
@@ -8,7 +9,6 @@ export class Seance {
   remarque:string;
   tauxRealisation:number;
   tauxRealisationPrevisible:number;
-  Presence:Map<Enfant,boolean> = null;
-  Remarques:Map<Enfant,string> = null;
+  presenceEnfants:Presence[] = null;
 
 }

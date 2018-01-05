@@ -37,4 +37,10 @@ export class  RealisationProjetService {
     return this.http.put("http://localhost:8080/addSeanceToRealisationProjet/" + numRealisationProjet, seance)
       .map(resp => resp.json());
   }
+
+  findProduitOfProjet(id:number) {
+    return this.http.get("http://localhost:8080/findProduitOfProjet/"+id)
+      .map(resp => resp.json());
+  }
+  
 }

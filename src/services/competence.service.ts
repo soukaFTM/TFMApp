@@ -18,10 +18,10 @@ export class  CompetenceService
   getCompetences(motCle:string,page:number,size:number)
   {
     if(motCle=="")
-      return this.http.get("http://localhost:8080/PageCompetence?page="+page+"&size="+size)
+      return this.http.get("http://localhost:8080/PageCompetences?page="+page+"&size="+size)
         .map(resp=>resp.json());
     else
-      return this.http.get("http://localhost:8080/ChercherCompetence?mc="+motCle+"&page="+page+"&size="+size)
+      return this.http.get("http://localhost:8080/ChercherCompetences?mc="+motCle+"&page="+page+"&size="+size)
         .map(resp=>resp.json());
 
   }

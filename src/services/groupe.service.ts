@@ -17,6 +17,12 @@ export class  GroupeService {
       .map(resp => resp.json());
 }
 
+
+findGroupeOfProjet(id:number) {
+  return this.http.get("http://localhost:8080/findGroupeOfProjet/"+id)
+    .map(resp => resp.json());
+}
+
 getProjets(id:number) {
   return this.http.get("http://localhost:8080/ProjetsDuGroupe/"+id)
     .map(resp => resp.json());

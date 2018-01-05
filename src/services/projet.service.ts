@@ -17,10 +17,10 @@ export class  ProjetService
   getProjets(motCle:string,page:number,size:number)
   {
     if(motCle=="")
-      return this.http.get("http://localhost:8080/PageProjet?page="+page+"&size="+size)
+      return this.http.get("http://localhost:8080/PageProjets?page="+page+"&size="+size)
         .map(resp=>resp.json());
     else
-      return this.http.get("http://localhost:8080/ChercherProjet?mc="+motCle+"&page="+page+"&size="+size)
+      return this.http.get("http://localhost:8080/ChercherProjets?mc="+motCle+"&page="+page+"&size="+size)
         .map(resp=>resp.json());
 
   }

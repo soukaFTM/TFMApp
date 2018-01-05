@@ -37,6 +37,7 @@ export class GroupeComponent implements OnInit {
     this.GroupeService.getGroupe(this.idGroupe)
       .subscribe(data=>{
         this.groupe=data;
+
       },err=>{
         console.log(err);
       })

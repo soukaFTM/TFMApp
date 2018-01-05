@@ -3,10 +3,10 @@ import {Projet} from "./model.Projet";
 
 export class RealisationProjet {
 
-  CodeRealisation: number ;
+  codeRealisation: number ;
   projet:Projet = null;
   evaluationGlobal: number;
   remarque: string;
-  ListSeance: Seance[] = null;
+  listSeance: Seance[] = null;
 
 }

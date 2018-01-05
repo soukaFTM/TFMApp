@@ -1,8 +1,8 @@
 export class AbstractProduit {
 
-  numProduit: number ;
-  intituler: string;
-  description: string;
+  public numProduit: number ;
+  public intituler: string;
+  public description: string;
   Prix: number;
   DateCreation: string;
   DateModification: string;

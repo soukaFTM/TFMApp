@@ -1,3 +1,104 @@
-<p>
-  realisation-projet works!
-</p>
+
+<div class="row">
+  <div class="col-md-12">
+      <div class="panel panel-default">
+          <div class="panel-heading">Liste des etudiants </div>
+          <div class="panel-body">
+            <table class="table table-striped" border="1" >
+              <thead>
+              <tr>
+                <th rowspan="2">N°</th>
+                <th rowspan="2">Nom et Prenom</th>
+                <th *ngFor="let s of projet?.listSeance" >{{s.codeSeance}} <input type="button" class="btn btn-warning btn-small" value="+" (click)="updateSeance(s)"  /> </th>
+                <th> <input type="button" class="btn btn-success" value="+" (click)="NewSeance()"  /></th>
+              </tr>
+              <tr>
+                  <th *ngFor="let s of projet?.listSeance" >{{s.dateDebut}}-{{s.dateFin}}</th>
+                  <th> 
+                    <section *ngIf="newSeance">
+                      <div class="form-group">
+                          <input type="date" class="form-control"placeholder="date seance" [(ngModel)]="seance.dateDebut">
+                      </div>
+                     </section>
+                  </th>
+              </tr>
+              </thead>
+              <tbody>
+              <tr *ngFor="let e of groupe?.listEnfant ">  
+                <td>{{e.codeEnfant}}</td>
+                <td>{{e.nom}} {{e.prenom}}</td>
+                <td *ngFor="let s of projet?.listSeance" > 
+                  <section *ngFor="let p of s.presenceEnfants" > 
+                      <section *ngIf="p.enfant.codeEnfant==e.codeEnfant">
+                          <section *ngIf="p.presence==true">
+                              P
+                          </section>
+                          <section *ngIf="p.presence==false">
+                              A
+                          </section>
+                        </section>
+                   </section>
+                </td>
+                <td> 
+                  <section *ngIf="newSeance">
+                    <input type="checkbox" id=check{{e.codeEnfant}}  (click)="setPresenceEnfant(e)"  >
+                  </section>
+              </td>
+                </tr >
+                <tr>
+                  <td colspan="2">Nombre de present</td>
+                  <td *ngFor="let s of projet?.listSeance">{{countPresence(s)}}</td>
+                  <td></td>
+                </tr>
+                <tr>
+                    <td colspan="2">Annimateur</td>
+                    <td *ngFor="let s of projet?.listSeance">{{s.dirigeant?.nom}} {{s.dirigeant?.prenom}}</td>
+                    <td>
+                        <section *ngIf="newSeance">
+                        <div class="form-group">
+                              <select [(ngModel)]="seance.dirigeant" >
+                                <option disabled selected>Please select...</option>
+                                <option *ngFor="let f of listResponsable" [ngValue]="f">{{f.codeFormateur}}:{{f.nom}} {{f.prenom}}</option>
+                              </select>
+                          </div>
+                          </section>
+
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Remarque</td>
+                    <td *ngFor="let s of projet?.listSeance">{{s.remarque}}</td>
+                    <td>
+                        <section *ngIf="newSeance">
+                        <div class="form-group">
+                            <textarea type="" class="form-control"  [(ngModel)]="seance.remarque"></textarea>
+                        </div>
+                        </section>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="2">Taux de realisation</td>
+                    <td *ngFor="let s of projet?.listSeance">{{s.tauxRealisaton}}%</td>
+                    <td>
+                        <section *ngIf="newSeance">
+                     
+                        <div class="form-group">
+                            <select [(ngModel)]="seance.tauxRealisaton" >
+                              <option disabled selected>Please select...</option>
+                              <option [ngValue]="0">0</option>
+                              <option [ngValue]="25">25</option>
+                              <option [ngValue]="50">50</option>
+                              <option [ngValue]="75">75</option>
+                              <option [ngValue]="100">100</option>
+                            </select>
+                        </div>
+                        </section>
+                    </td>
+                  </tr>
+              </tbody>
+            </table>   
+          </div>
+        </div>
+  </div>
+</div>
+  

@@ -57,7 +57,7 @@ export class ProgrammeComponent implements OnInit {
   {
     this.ProgrammeService.getAllResponsableForProgramme(produit.numProduit)
       .subscribe(data=>{
-        console.log(data);
+        console.log("resp list"+data);
         this.listResponsable=data;
       },err=>{
         console.log(err);

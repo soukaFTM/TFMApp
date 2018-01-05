@@ -76,11 +76,16 @@ export class ClientsComponent implements OnInit {
   }
   GetUpdateClient (client:Client){
     this.client=client;
+    if(this.client.statutJuridique==null)
+      this.typeNewClient = 'P';
+    else
+    this.typeNewClient = 'M';
+
     this.actionClient="modifier"
     document.getElementById("btnSaveClient").setAttribute("value", "Modifier");
   }
- /* UpdateClient(){
-    this.clientService.saveClients(this.client,)
+ UpdateClient(){
+    this.clientService.saveClients(this.client,this.typeNewClient)
       .subscribe(data=>{
         this.searchClient();
         this.client=new Client();
@@ -90,14 +95,14 @@ export class ClientsComponent implements OnInit {
         console.log(err);
       })
 
-  }*/
+  }
   gestionClient (){
     if (this.actionClient == "sauvgarder")
     {
       this.saveClient();
     } else {
 
-      //this.UpdateClient();
+      this.UpdateClient();
     }
   }
   deleteClient(id:number){
