@@ -5,6 +5,7 @@ import {Commande} from "../../model/model.Commande";
 import {ClientService} from "../../services/client.service";
 import {PacksService} from "../../services/pack.service";
 import {Http} from "@angular/http";
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients',
@@ -34,7 +35,7 @@ export class ClientsComponent implements OnInit {
   commande:Commande=new Commande();
   listProduit:any=null;
   selectedClient:Client=new Client();
-  constructor(private http:Http,public clientService:ClientService) { }
+  constructor(private http:Http,public clientService:ClientService ,public router:Router) { }
 
   ngOnInit() {
     this.searchClient();
@@ -159,18 +160,11 @@ export class ClientsComponent implements OnInit {
         console.log(err);
       })
   }
-  /*removeProduitFromPack(pack:any,produit:Produit)
+
+  DetailCommande(id:number)
   {
-    console.log(this.produit+"   / "+pack.numProduit);
-    return this.clientService.removeProduitFromPack(pack.numProduit,produit)
-      .subscribe(data=>{
-        console.log(data);
-        this.prodDetailPack=data;
-        this.searchPack();
-      },err=>{
-        console.log(err);
-      })
-  }*/
+    this.router.navigate(["commandes",id]);
+  }
 
 
 

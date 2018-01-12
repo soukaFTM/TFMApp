@@ -137,8 +137,6 @@ export class ProgrammeComponent implements OnInit {
   gestionGroupe (){
     if (this.actionGroupe == "Sauvgarder")
     {
-      alert(this.groupe.heureDebut);
-
       this.addGroupeToProgramme();
       this.groupe= new Groupe();
     } else {

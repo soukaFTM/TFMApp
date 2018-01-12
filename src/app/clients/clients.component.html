@@ -63,9 +63,9 @@
             <td>{{p.adress}}</td>
             <td>
               <input type="button" class="btn btn-warning" value="Lister Enfants" (click)="GetCurrentClient(p)" />
-              <input  type="button" class="btn btn-warning" value="Lister commande" (click)="GetCurrentClient(p)" />
+              <input  type="button" class="btn btn-warning" value="Lister commandes" (click)="DetailCommande(p.codeClient)" />
               <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateClient(p)" />
-              <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteClient(p.numClient)" />
+              <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteClient(p.codeClient)" />
             </td>
 
           </tr>
@@ -171,7 +171,6 @@
       <td> {{e.nom}} {{e.prenom}}</td>
       <td>{{e.dateNaissance}}</td>
       <td>
-        <input type="button" class="btn btn-warning" value="Lister commande" (click)="GetCurrentClient(e)" />
         <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateEnfant(e)" />
         <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteEnfant(e.numEnfant)" />
       </td>
@@ -223,72 +222,3 @@
 
 
 </div>
-<!-- Commande d'un client -->
-<div class="row">
-<div >
-
-    <div *ngFor="let e of selectedClient.listEnfant">
-      <p>{{e.codeEnfant}}{{e.nom}} {{e.prenom}}</p>
-        <table  >
-          <tr>
-            <td>Code Commande</td>
-            <td>date Commande</td>
-            <td>programme</td>
-            <td>prix</td>
-            <td>Operation</td>
-          </tr>
-          <tr  *ngFor="let c of e.listCommande">
-            <td>{{c.codeCommande}}</td>
-            <td>{{c.codeCommande}}</td>
-            <td>{{c.codeCommande}}</td>
-            <td>{{c.codeCommande}}</td>
-            <td>
-              <input type="button" class="btn btn-warning" value="Modifier"  />
-              <input type="button" class="btn btn-danger" value="Supprimer" />
-            </td>
-          </tr>
-        </table>
-
-    </div>
-  <ul class ="nav nav-pillis">
-
-    <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-      <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-    </li>
-  </ul>
-</div>
-<!-- gérer une commande -->
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouvelle commande </div>
-    <div class="panel-body">
-
-      <div class="form-group" >
-        <label class="col-md-4 control-label">Choisir le Programme:</label>
-        <div class="col-md-8">
-         <!-- <select class="form-control"  [(ngModel)]="commande.programme" >
-            <option *ngFor="let p of pageProduits?.content" value="{{p}}">{{p.intituler}}</option>
-          </select>-->
-        </div>
-      </div>
-      <div class="form-group" >
-        <label class="col-md-4 control-label">Choisir les Enfants:</label>
-        <div class="col-md-8">
-          <select class="form-control"  [(ngModel)]="listEnfantCommande" multiple >
-            <option *ngFor="let e of selectedClient.listEnfant" value="{{e}}">{{e.prenom}}</option>
-          </select>
-          <input type="button" class="btn btn-danger" value="annuler"
-                 (click)="listEnfantCommande=null" />
-        </div>
-        {{listEnfantCommande}}
-      </div>
-
-      <div class="form-group">
-        <input type="button" id="btnSaveCommande" class="form-control btn-space" value="Sauvgarder" (click)="gestionCommande()" />
-        <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
-      </div>
-    </div>
-  </div>
-</div>
-</div>
-

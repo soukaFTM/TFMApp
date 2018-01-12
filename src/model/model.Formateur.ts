@@ -1,4 +1,5 @@
 import {Competence} from "./model.Competence";
+import { suiviMensuelle } from "./model.suiviMensuelle";
 
 export class Formateur {
 
@@ -9,6 +10,7 @@ export class Formateur {
   typedecontrat:string;
   dateDebut:string;
   listCompetence: Competence[] = null;
+  suivi: suiviMensuelle[] = null;
 
 
 }

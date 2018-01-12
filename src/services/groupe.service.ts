@@ -6,6 +6,7 @@ import {Formateur} from "../model/model.Formateur";
 import {Seance} from "../model/model.Seance";
 import {RealisationProjet} from "../model/model.RealisationProjet";
 import { Projet } from "../model/model.Projet";
+import { Enfant } from "../model/model.Enfant";
 
 @Injectable()
 export class  GroupeService {
@@ -32,6 +33,13 @@ getProjets(id:number) {
 
     console.log("in service ");
     return this.http.put("http://localhost:8080/addRealisationProjetToGroupe/" + numGroupe, projet)
+      .map(resp => resp.json());
+  }
+
+  addEnfantsToGroupe(ListEnfant:Array<Enfant>, numGroupe: number) {
+
+    console.log("in service ");
+    return this.http.put("http://localhost:8080/addEnfantsToGroupe/" + numGroupe, ListEnfant)
       .map(resp => resp.json());
   }
 

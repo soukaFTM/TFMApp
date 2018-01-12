@@ -89,7 +89,6 @@ export class PackComponent implements OnInit {
   gestionProduit (){
     if (this.action == "sauvgarder")
     {
-      alert("taille"+this.produit.ListProduit.length);
       this.saveProduit();
     } else {
 

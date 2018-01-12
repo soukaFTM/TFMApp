@@ -11,6 +11,11 @@ export class  ProgrammeService
 {
   constructor(public  http:Http){}
 
+  getAllProgrammes()
+  {
+    return this.http.get("http://localhost:8080/AllProgramme")
+    .map(resp=>resp.json());
+  }
   getProgrammes(motCle:string,page:number,size:number)
   {
     if(motCle=="")

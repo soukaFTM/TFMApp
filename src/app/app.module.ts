@@ -18,7 +18,6 @@ import { ProgrammeComponent } from './programme/programme.component';
 import {FormateurService} from "../services/formateur.service";
 import {SeanceService} from "../services/seance.service";
 import {ProgrammeService} from "../services/programme.service";
-import { SeanceComponent } from './seance/seance.component';
 import { CommandeComponent } from './commande/commande.component';
 import {CommandeService} from "../services/commande.service";
 import { GroupeComponent } from './groupe/groupe.component';
@@ -30,6 +29,9 @@ import { ProjetService } from '../services/projet.service';
 import { GroupeService } from '../services/groupe.service';
 import { RealisationProjet } from '../model/model.RealisationProjet';
 import { RealisationProjetService } from '../services/realisationProjet.service';
+import { suiviMensuelle } from '../model/model.suiviMensuelle';
+import { suiviMensuelleService } from '../services/suiviMensuelle.service';
+import { SuiviFormateurComponent } from './suiviFormateur/suiviFormateur.component';
 
 const appRoutes:Routes = [
   {path : 'produits' , component: ProduitsComponent},
@@ -38,12 +40,12 @@ const appRoutes:Routes = [
   {path: 'clients', component: ClientsComponent},
   {path: 'formateurs', component: FormateurComponent},
   {path: 'programmes', component: ProgrammeComponent},
-  {path: 'seances', component: SeanceComponent},
-  {path: 'commandes', component: CommandeComponent},
+  {path: 'commandes/:id', component: CommandeComponent},
   {path: 'competences', component: CompetenceComponent},
   {path: 'projets', component: ProjetComponent},
   {path: 'groupe/:id', component: GroupeComponent},
   {path: 'realisationProjet/:id', component: RealisationProjetComponent},
+  {path: 'suiviFormateur/:id', component: SuiviFormateurComponent},
   {path: '' , redirectTo :'/produits' , pathMatch:'full'}
   
 ];
@@ -57,7 +59,7 @@ const appRoutes:Routes = [
     ClientsComponent,
     FormateurComponent,
     ProgrammeComponent,
-    SeanceComponent,
+    SuiviFormateurComponent,
     CommandeComponent,
     GroupeComponent,
     RealisationProjetComponent,
@@ -69,7 +71,8 @@ const appRoutes:Routes = [
     FormsModule
   ],
   providers: [ProduitsService,PromotionsService,PacksService,ClientService,FormateurService,
-    SeanceService,ProgrammeService,CommandeService,CompetenceService,ProjetService,GroupeService,RealisationProjetService],
+    SeanceService,ProgrammeService,CommandeService,CompetenceService,ProjetService,GroupeService,RealisationProjetService,
+    suiviMensuelleService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -68,7 +68,6 @@ export class RealisationProjetComponent implements OnInit {
 
   setPresenceEnfant(enfant:Enfant)
   {
-    alert(enfant.codeEnfant);
     this.listPresence.forEach((item, index) => {
       if(item.enfant.codeEnfant==enfant.codeEnfant)
       {

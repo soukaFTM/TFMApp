@@ -7,7 +7,7 @@ export class Promo {
   codePromo: number ;
   intituler: string;
   description: string;
-  taux: number;
+  taux: number = 0;
   dateCreation: string;
   dateModification: string;
   dateSuppression: string;

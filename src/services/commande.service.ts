@@ -18,6 +18,13 @@ export class  CommandeService
         .map(resp=>resp.json());
 
   }
+  
+  reglerPaiment(Commande:Commande)
+  {
+    return this.http.put("http://localhost:8080/PaimentCommande",Commande)//,Commande.ListCommande
+      .map(resp=>resp.json());
+
+  }
   saveCommande(Commande:Commande)
   {
     return this.http.post("http://localhost:8080/saveCommande",Commande)//,Commande.ListCommande
@@ -29,5 +36,11 @@ export class  CommandeService
     return this.http.delete("http://localhost:8080/Commandes/"+Commande);
   }
 
-
+  ///////////////////////////////////////////////////////
+  getClientsCommands(idClient:number)
+  {
+    return this.http.get("http://localhost:8080/getClientsCommands/"+idClient)
+         .map(resp=>resp.json());
+  }
+  ///////////////////////////////////////////////////////// 
 }

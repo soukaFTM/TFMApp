@@ -41,4 +41,11 @@ export class  PromotionsService
       .map(resp=>resp.json());
   }
 
+  getPromotionOfProduit(codeProduit:number)
+  {
+    return this.http.get("http://localhost:8080/getPromotionOfProduit/"+codeProduit)
+      .map(resp=>resp.json());
+
+  }
+
 }

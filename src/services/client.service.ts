@@ -2,11 +2,36 @@ import {Injectable} from "@angular/core";
 import {Http} from "@angular/http";
 import {Client} from "../model/model.Client";
 import {Enfant} from "../model/model.Enfant";
+import { Commande } from "../model/model.Commande";
 
 @Injectable()
 export class  ClientService
 {
   constructor(public  http:Http){}
+
+  //////////////////////////////////////////////////////////////////
+  getClientByID(id:number)
+  {
+    return this.http.get("http://localhost:8080/getClientByID/"+id)
+         .map(resp=>resp.json());
+  }
+ 
+  addCommandeToEnfant(commande:Commande,numEnfant:number)
+  {
+    console.log("in service ");
+    return this.http.put("http://localhost:8080/addCommandeToEnfant/"+numEnfant,commande)
+      .map(resp=>resp.json());
+  }
+  removeCommandeFromEnfant(commande:Commande,numEnfant:number)
+  {
+    console.log("in service ");
+    return this.http.put("http://localhost:8080/addCommandeToEnfant/"+numEnfant,commande)
+      .map(resp=>resp.json());
+  }
+  
+
+  //////////////////////////////////////////////////////////////////
+
 
   getClients(motCle:string,page:number,size:number)
   {
@@ -39,10 +64,5 @@ export class  ClientService
       .map(resp=>resp.json());
   }
   /*
-  addCommandeToClient(enfant:Enfant,numclient:number)
-  {
-    console.log("in service ");
-    return this.http.put("http://localhost:8080/addCommandeToClient/"+numclient,enfant)
-      .map(resp=>resp.json());
-  }*/
+ */
 }

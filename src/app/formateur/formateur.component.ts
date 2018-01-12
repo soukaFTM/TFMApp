@@ -4,6 +4,7 @@ import {FormateurService} from "../../services/formateur.service";
 import {Formateur} from "../../model/model.Formateur";
 import { Competence } from '../../model/model.Competence';
 import { CompetenceService } from '../../services/competence.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-formateur',
@@ -22,7 +23,8 @@ export class FormateurComponent implements OnInit {
   listCompetence:Array<Competence>;
 
 
-  constructor(private http:Http,public FormateurService:FormateurService, public competenceService:CompetenceService) { }
+  constructor(private http:Http,public FormateurService:FormateurService, public competenceService:CompetenceService
+    ,public router:Router) { }
 
   ngOnInit() {
     this.searchFormateurs();
@@ -114,7 +116,6 @@ export class FormateurComponent implements OnInit {
   }
   removeCompetenceFromFormateur(formateur:any,Competence:Competence)
   {
-    alert(formateur.codeFormateur)
     return this.FormateurService.removeCompetenceFromFormateur(formateur.codeFormateur,Competence)
       .subscribe(data=>{
         console.log(data);
@@ -123,5 +124,11 @@ export class FormateurComponent implements OnInit {
       },err=>{
         console.log(err);
       })
+  }
+
+
+  suiviMensuelle(formateur:Formateur)
+  {
+    this.router.navigate(["suiviFormateur",formateur.codeFormateur]);
   }
 }

@@ -1,0 +1,62 @@
+<div>
+  <h3> Suivi Formateur  </h3>
+  <!-- Lister les Seances -->
+  <div>
+      <table class="table table-striped">
+          <thead>
+          <tr>
+            <th>Numero Formateur </th>
+            <th>CIN </th>
+            <th>nom </th>
+            <th>prenom </th>
+            <th>Date debut de travail </th>
+            <th>type de contrat </th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr >
+            <td>{{formateur.codeFormateur}}</td>
+            <td>{{formateur.cin}}</td>
+            <td>{{formateur.nom}}</td>
+            <td>{{formateur.prenom}}</td>
+            <td>{{formateur.datedebut}}</td>
+            <td>{{formateur.typedecontrat}}</td>
+          </tr>
+          </tbody>
+        </table>
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+          <th>Numero  </th>
+          <th>Date  </th>
+          <th>nombre Seance  </th>
+          <th>nombre Heures  </th>
+          <th>salaire  </th>
+          <th>Valider Paiement</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let p of formateur.suivi">
+          <td>{{p.codeSuivi}}</td>
+          <td>{{p.finMois}}</td>
+          <td>{{p.nbrSeance}}</td>
+          <td>{{p.nbrHeure}}</td>
+          <td>{{p.salaire}}</td>
+          <td>
+              <section *ngIf="p.paiement==true"> Facture réglé </section>
+              <section *ngIf="p.paiement==false"> 
+                  <input type="button" class="btn btn-success btn-sm" value="Régler Facture" (click)="reglerPaiment(p)" />
+              </section>
+          </td>
+          
+
+      </tr>
+      </tbody>
+    </table>
+   
+  </div>
+</div>
+
+
+

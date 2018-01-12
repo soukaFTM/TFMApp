@@ -69,7 +69,6 @@ export class PromotionsComponent implements OnInit {
   addProduitToPromotion(promotion:any)
   {
     console.log(this.selectedProduit);
-    //alert("promo"+codePromo+" / "+this.selectedProduit.intituler);
     return this.promotionservice.addProduitToPromotion(this.selectedProduit,promotion.codePromo)
           .subscribe(data=>{
             console.log(data);
@@ -82,7 +81,6 @@ export class PromotionsComponent implements OnInit {
   removeProduitFromPromotion(promotion:any,produit:Produit)
   {
     console.log(this.selectedProduit);
-    //alert("promo"+codePromo+" / "+this.selectedProduit.intituler);
     return this.promotionservice.removeProduitFromPromotion(promotion.codePromo,produit)
       .subscribe(data=>{
         console.log(data);
