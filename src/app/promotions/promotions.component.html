@@ -1,11 +1,16 @@
+
+
 <div>
-  <h3> Liste des produits </h3>
-  <!-- Chercher un produit -->
-  <div>
-    <label>mot cle :</label>
-    <input type="text" [(ngModel)]="motCle"/>
-    <button (click)=" newSearch();searchProduits()">Chercher</button>
-  </div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Liste des produits</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouvelle promotion </a></li>
+   </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
   <!-- Lister les produits -->
   <div>
     <table class="table table-striped"  >
@@ -21,9 +26,9 @@
         <td>{{p.description}}</td><td>{{p.dateDebut}}</td><td>{{p.dateFin}}</td>
         <td>{{p.taux}}</td>
         <td>
-          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProduit(p)" />
-          <input type="button" class="btn btn-danger" value="Produits" (click)="ShowPromotionProduits(p)" />
-          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deletePromotion(p.codePromo)" />
+          <input type="button" class="btn btn-warning btn-xs" value="Modifier" (click)="GetUpdateProduit(p)" />
+          <input type="button" class="btn btn-success btn-xs" value="Produits" data-toggle="modal" data-target="#exampleModal"  (click)="ShowPromotionProduits(p)" />
+          <input type="button" class="btn btn-danger btn-xs" value="X" (click)="deletePromotion(p.codePromo)" />
 
         </td>
 
@@ -36,48 +41,9 @@
       </li>
     </ul>
   </div>
-  <div>
-    <h3> Liste des produits de la promo : {{prodDetailPromotion?.intituler}}</h3>
-    <table>
-      <tr>
-        <td>Produit</td><td>Ajouter</td>
-      </tr>
-      <tr>
-        <td>
-          <select [(ngModel)]="selectedProduit" >
-            <option disabled selected>Please select...</option>
-            <option *ngFor="let p of listProduit" [ngValue]="p">{{p.numProduit}}:{{p.intituler}}</option>
-          </select>
-        </td>
-        <td>
-          <input type="button" class="btn btn-danger" value="+"
-                 (click)="addProduitToPromotion(prodDetailPromotion)" />  prod{{produit?.NumProduit}}
-        </td>
-
-      </tr>
-    </table>
-    <table class="table table-striped"  >
-      <thead>
-      <tr>
-        <th>Numero Produit</th><th>Intituler</th><th>Description</th>
-        <th>Prix</th>
-        <th>Operation</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let prod of prodDetailPromotion?.listeProduit">
-        <td>{{prod.numProduit}}</td>
-        <td>{{prod.intituler}}</td><td>{{prod.description}}</td>
-        <td>{{prod.prix}}</td>
-        <td>
-          <input type="button" class="btn btn-danger" value="X" (click)="removeProduitFromPromotion(prodDetailPromotion,prod)"  />
-        </td>
-      </tr>
-      </tbody>
-  </table>
-</div>
-</div>
-
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      
 
 <div >
   <h3>Nouvelle promotion</h3>
@@ -116,5 +82,81 @@
     <input type="button"  class="form-control btn-space" value="Annuler" (click)="Annuler()" />
   </div>
 </div>
+
+    </div>
+  </div>
+
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Liste des produits de la promo : {{prodDetailPromotion?.intituler}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+
+        <div>
+          <table>
+            <tr>
+              <td>Produit</td><td>Ajouter</td>
+            </tr>
+            <tr>
+              <td>
+                <select [(ngModel)]="selectedProduit" >
+                  <option disabled selected>Please select...</option>
+                  <option *ngFor="let p of listProduit" [ngValue]="p">{{p.numProduit}}:{{p.intituler}}</option>
+                </select>
+              </td>
+              <td>
+                <input type="button" class="btn btn-danger" value="+"
+                       (click)="addProduitToPromotion(prodDetailPromotion)" />
+              </td>
+      
+            </tr>
+          </table>
+          <table class="table table-striped"  >
+            <thead>
+            <tr>
+              <th>Numero Produit</th><th>Intituler</th><th>Description</th>
+              <th>Prix</th>
+              <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let prod of prodDetailPromotion?.listeProduit">
+              <td>{{prod.numProduit}}</td>
+              <td>{{prod.intituler}}</td><td>{{prod.description}}</td>
+              <td>{{prod.prix}}</td>
+              <td>
+                <input type="button" class="btn btn-danger" value="X" (click)="removeProduitFromPromotion(prodDetailPromotion,prod)"  />
+              </td>
+            </tr>
+            </tbody>
+        </table>
+      </div>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
 
 

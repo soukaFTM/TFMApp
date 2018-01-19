@@ -1,34 +1,17 @@
-<!-- Button trigger modal -->
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-  Launch demo modal
-</button>
 
-<!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        ...
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">Save changes</button>
-      </div>
-    </div>
-  </div>
-</div>
-<div class="row">
-  <div class="col-md-12">
-    <h4 class="page-head-line">Liste des clients</h4>
-  </div>
-</div>
-<!-- Clients -->
+
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Liste des Clients</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouveau Client</a></li>
+   </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+   <!-- Clients -->
 <div class="row">
   <div class="panel panel-default">
     <div class="panel-heading">
@@ -62,10 +45,10 @@
             <td>{{p.numTelePortable}}</td>
             <td>{{p.adress}}</td>
             <td>
-              <input type="button" class="btn btn-warning" value="Lister Enfants" (click)="GetCurrentClient(p)" />
-              <input  type="button" class="btn btn-warning" value="Lister commandes" (click)="DetailCommande(p.codeClient)" />
-              <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateClient(p)" />
-              <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteClient(p.codeClient)" />
+              <input type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" value="Lister Enfants" (click)="GetCurrentClient(p)" />
+              <input  type="button" class="btn btn-success btn-xs" value="Lister commandes" (click)="DetailCommande(p.codeClient)" />
+              <input type="button" class="btn btn-warning btn-xs" value="Modifier" (click)="GetUpdateClient(p)" />
+              <input type="button" class="btn btn-danger btn-xs" value="X" (click)="deleteClient(p.codeClient)" />
             </td>
 
           </tr>
@@ -80,7 +63,12 @@
       </div>
     </div>
   </div>
-  <!-- gérer un Client -->
+
+
+</div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+        <!-- gérer un Client -->
   <div>
     <div class="panel panel-default">
       <div class="panel-heading">Nouveau Client </div>
@@ -97,17 +85,18 @@
           </div>
         </div>
         <div *ngIf="typeNewClient=='P'" class="form-group">
-          <label class="col-md-4 control-label">Nom:</label>
-          <div class="col-md-8">
-            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nom">
-          </div>
-        </div>
-        <div *ngIf="typeNewClient=='P'" class="form-group">
           <label class="col-md-4 control-label">CIN:</label>
           <div class="col-md-8">
             <input type="text" class="form-control"  placeholder="cin" [(ngModel)]="client.cin">
           </div>
         </div>
+        <div *ngIf="typeNewClient=='P'" class="form-group">
+          <label class="col-md-4 control-label">Nom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="client.nom">
+          </div>
+        </div>
+       
         <div *ngIf="typeNewClient=='P'" class="form-group">
           <label class="col-md-4 control-label">Prenom:</label>
           <div class="col-md-8">
@@ -152,73 +141,109 @@
       </div>
     </div>
   </div>
-
-</div>
-  <!-- Enfant d'un client -->
-<div class="row">
-<div>
-  <table class="table table-striped"  >
-    <thead>
-    <tr>
-      <th>code Enfant</th><th>Nom Complet</th><th>Date Naissance</th>
-      <th>Age</th>
-      <th>Operations</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let e of selectedClient.listEnfant">
-      <td>{{e.codeEnfant}}</td>
-      <td> {{e.nom}} {{e.prenom}}</td>
-      <td>{{e.dateNaissance}}</td>
-      <td>
-        <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateEnfant(e)" />
-        <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteEnfant(e.numEnfant)" />
-      </td>
-
-    </tr>
-    </tbody>
-  </table>
-  <ul class ="nav nav-pillis">
-
-    <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-      <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-    </li>
-  </ul>
-</div>
-
-  <!-- gérer un Enfant -->
-  <div>
-    <div class="panel panel-default">
-      <div class="panel-heading">Nouveau Enfant du Client {{selectedClient.nom}} {{selectedClient.prenom}} </div>
-      <div class="panel-body">
-
-        <div  class="form-group">
-          <label class="col-md-4 control-label">Nom:</label>
-          <div class="col-md-8">
-            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="enfant.nom">
-          </div>
-        </div>
-
-        <div  class="form-group">
-          <label class="col-md-4 control-label">Prenom:</label>
-          <div class="col-md-8">
-            <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="enfant.prenom">
-          </div>
-        </div>
-        <div  class="form-group">
-          <label class="col-md-4 control-label">Date de naissance:</label>
-          <div class="col-md-8">
-            <input type="date" class="form-control"  placeholder="dateNaissance" [(ngModel)]="enfant.dateNaissance">
-          </div>
-        </div>
-
-        <div class="form-group">
-          <input type="button" id="btnSaveEnfant" class="form-control btn-space" value="Sauvgarder" (click)="gestionEnfant()" />
-          <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
-        </div>
-      </div>
     </div>
   </div>
 
-
 </div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> Enfant du Client {{selectedClient.nom}} {{selectedClient.prenom}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <div>
+
+          <!-- Nav tabs -->
+          <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" class="active"><a href="#enfant" aria-controls="enfant" role="tab" data-toggle="tab">Liste des enfants</a></li>
+            <li role="presentation"><a href="#nvEnfant" aria-controls="nvEnfant" role="tab" data-toggle="tab">Nouveau enfant</a></li>
+           </ul>
+        
+          <!-- Tab panes -->
+          <div class="tab-content">
+            <div role="tabpanel" class="tab-pane active" id="enfant">
+                  <div class="row">
+                    <div>
+                      <table class="table table-striped"  >
+                        <thead>
+                        <tr>
+                          <th>code Enfant</th><th>Nom Complet</th><th>Date Naissance</th>
+                          <th>Operations</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let e of selectedClient.listEnfant">
+                          <td>{{e.codeEnfant}}</td>
+                          <td> {{e.nom}} {{e.prenom}}</td>
+                          <td>{{e.dateNaissance}}</td>
+                          <td>
+                            <input type="button" class="btn btn-warning btn-xs" value="edit" (click)="GetUpdateEnfant(e)" />
+                            <input type="button" class="btn btn-danger btn-xs" value="X" (click)="deleteEnfant(e.numEnfant)" />
+                          </td>
+                    
+                        </tr>
+                        </tbody>
+                      </table>
+                      <ul class ="nav nav-pillis">
+                    
+                        <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+                          <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+            </div>
+            <div role="tabpanel" class="tab-pane" id="nvEnfant">
+              
+                <!-- gérer un Enfant -->
+                  <div>
+                    <div class="panel panel-default">
+                      <div class="panel-heading">Nouveau  </div>
+                      <div class="panel-body">
+
+                        <div  class="form-group">
+                          <label class="col-md-4 control-label">Nom:</label>
+                          <div class="col-md-8">
+                            <input type="text" class="form-control"  placeholder="nom" [(ngModel)]="enfant.nom">
+                          </div>
+                        </div>
+
+                        <div  class="form-group">
+                          <label class="col-md-4 control-label">Prenom:</label>
+                          <div class="col-md-8">
+                            <input type="text" class="form-control"  placeholder="Prenom" [(ngModel)]="enfant.prenom">
+                          </div>
+                        </div>
+                        <div  class="form-group">
+                          <label class="col-md-4 control-label">Date de naissance:</label>
+                          <div class="col-md-8">
+                            <input type="date" class="form-control"  placeholder="dateNaissance" [(ngModel)]="enfant.dateNaissance">
+                          </div>
+                        </div>
+
+                        <div class="form-group">
+                          <input type="button" id="btnSaveEnfant" class="form-control btn-space" value="Sauvgarder" (click)="gestionEnfant()" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+            </div>
+          </div>
+        </div>
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div>
+    </div>
+  </div>
+</div>
+

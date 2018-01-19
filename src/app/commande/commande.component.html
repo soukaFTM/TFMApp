@@ -1,184 +1,224 @@
 
 
+<div>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Liste des Commandes du client {{selectedClient.nom}} {{selectedClient.prenom}} </a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouvelle commande</a></li>
+   </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+   
+
 
 <div>
-  <h3> Liste des Commandes du client {{selectedClient.nom}} {{selectedClient.prenom}} </h3>
-  <!-- Lister les Commandes -->
-  <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Numero Commande </th>
-        <th>Programme</th>
-        <th>Enfant </th>
-        <th>Montant</th>
-        <th>Paiament</th>
-        <th>Oppertaion</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let c of ClientCommandes " > 
-        <td >{{c.codeCommande}}</td>
-        <td>{{c.programme.produit.intituler}}</td>
-        <td > <section *ngFor="let e of c.listEnfant ">{{e.prenom}} {{e.nom}}</section></td>
-        <td>{{c.totale}}</td>
-        <td>
-          <section *ngIf="c.paiement==true"> Facture réglé </section>
-          <section *ngIf="c.paiement==false"> 
-              <input type="button" class="btn btn-success btn-sm" value="Régler Facture" (click)="reglerPaiment(c)" />
-          </section>
-        </td>
-        <td>
-          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteCommande(c.numCommande)" />
-        </td>
-      </tr>
-      </tbody>
-    </table>
-    <ul class ="nav nav-pillis">
-
-      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-      </li>
-    </ul>
+    <!-- Lister les Commandes -->
+    <div>
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Numero Commande </th>
+          <th>Programme</th>
+          <th>Enfant </th>
+          <th>Montant</th>
+          <th>Paiament</th>
+          <th>Oppertaion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of ClientCommandes " > 
+          <td >{{c.codeCommande}}</td>
+          <td>{{c.programme.produit.intituler}}</td>
+          <td > <section *ngFor="let e of c.listEnfant ">{{e.prenom}} {{e.nom}}</section></td>
+          <td>{{c.totale}}</td>
+          <td>
+            <section *ngIf="c.paiement==true"> Facture réglé </section>
+            <section *ngIf="c.paiement==false"> 
+                <input type="button" class="btn btn-success btn-sm" value="Régler Facture" (click)="reglerPaiment(c)" />
+            </section>
+          </td>
+          <td>
+            <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteCommande(c.numCommande)" />
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <ul class ="nav nav-pillis">
+  
+        <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+          <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+        </li>
+      </ul>
+    </div>
   </div>
+  
+  
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <!-- gérer une commande -->
+<div>
+    <div class="panel panel-default">
+      <div class="panel-heading">Nouvelle commande </div>
+      <div class="panel-body">
+  
+        <div class="form-group" >
+          <label class="col-md-4 control-label">Choisir le Programme:</label>
+          <div class="col-md-8">
+           <select class="form-control"  [(ngModel)]="Commande.programme" >
+              <option *ngFor="let p of programmes" [ngValue]="p"  >{{p.produit.intituler}}</option>
+            </select>
+          </div>
+        </div>
+        <section>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                  <th>Numero Programme {{selectedProgramme?.codeProgramme}} </th>
+                  <th>Intituler Produit </th>
+                  <th>nbr des inscrit </th>
+                  <th>Date debut </th>
+                  <th>Date Fin </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                  <td>{{Commande.programme?.codeProgramme}}</td>
+                  <td>{{Commande.programme?.produit?.intituler}}</td>
+                  <td>{{Commande.programme?.nombreInscrit}}</td>
+                  <td>{{Commande.programme?.dateDebut}}</td>
+                  <td>{{Commande.programme?.dateFin}}</td>
+                </tr>
+                </tbody>
+              </table>
+              
+              <table class="table table-striped" >
+                  <thead>
+                  <tr>
+                    <th>Code groupe</th>
+                    <th>nombre des inscris</th>
+                    <th>Jours</th>
+                    <th>Horraire</th>
+                    <th>Responsable</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let gr of Commande.programme?.listGroupe">
+                    <td>{{gr.codeGroupe}}</td>
+                    <td>{{gr.listEnfant?.length}}</td>
+                    <td>{{gr.jour}}</td>
+                    <td>{{gr.heureDebut}} - {{gr.heureFin}}</td>
+                    <td>{{gr.responsable?.nom}} {{gr.responsable?.prenom}} </td>
+                    <td>
+                        <input type="radio" id=groupe  (click)="setGroupeEnfant(gr)"  >
+                    </td>
+                  </tr>
+                  </tbody>
+                </table>
+  
+        </section>
+        <div class="form-group" >
+          <label class="col-md-4 control-label">Choisir les Enfants:</label>
+          <div class="col-md-8">
+            <select class="form-control"  [(ngModel)]="Commande.listEnfant" multiple  (change)="selectModeFacturation()">
+              <option *ngFor="let e of selectedClient.listEnfant" [ngValue]="e" >{{e.prenom}}</option>
+            </select>
+            <input type="button" class="btn btn-danger btn-xs" value="annuler"
+                   (click)="listEnfantCommande=null" />
+          </div>
+        </div>
+        <div class="form-group" >
+            <label class="col-md-4 control-label">Mode facturation</label>
+            <div class="col-md-8">
+              <select class="form-control"  [(ngModel)]="modeFacturation" (change)="selectModeFacturation()" >
+                  <option  value="PF">prix fixe</option>
+                  <option  value="PN">prix négociable</option>
+                </select>
+            </div>
+          </div>
+          <section *ngIf="modeFacturation=='PF' ">
+              <table class="table table-striped"  >
+                  <thead>
+                  <tr>
+                    <th>Code Promotion</th><th>Intituler</th><th>Description</th>
+                    <th>Date debut</th><th>Date fin</th><th>Taux</th><th>Choisir</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let p of ListPromotion" >
+                    <td>{{p.codePromo}}</td><td>{{p.intituler}}</td>
+                    <td>{{p.description}}</td><td>{{p.dateDebut}}</td><td>{{p.dateFin}}</td>
+                    <td>{{p.taux}}</td>
+                    <td> <input type="checkbox" (click)="SelectPromotion(p)"> </td>
+  
+                  </tr>
+                  </tbody>
+                </table>
+            
+            <div class="form-group" >
+                <label class="col-md-4 control-label">Prix fixe / enfant : </label>
+                <div class="col-md-8">
+  
+                  <input type="text" disabled class="form-control"[(ngModel)]="Commande.programme?.produit.prix">
+                </div>
+            </div>
+          </section>
+          <section *ngIf="modeFacturation=='PN'">
+              <div class="form-group" >
+                  <label class="col-md-4 control-label">Prix négocié / enfant :</label>
+                  <div class="col-md-8">
+                     <input type="text" class="form-control"  [(ngModel)]="prixNegocie">
+                  </div>
+              </div>
+          </section>
+  
+          <section >
+              <div class="form-group" >
+                  <label class="col-md-4 control-label">Prix totale : </label>
+                  <div class="col-md-8">
+              <input type="text"  class="form-control" [(ngModel)]="prixTotal" disabled>
+                  </div>
+              </div>
+          </section>
+  
+        <div class="form-group">
+          <input type="button" id="btnSaveCommande" class="form-control btn-space" value="Sauvgarder" (click)="saveCommande()" />
+        </div>
+      </div>
+    </div>
+  </div>
+    </div>
+  </div>
+
 </div>
 
 
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> produit : {{produitDetail?.intituler}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
-<!-- Commande d'un client -->
-<div class="row">
 
     
-<!-- gérer une commande -->
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouvelle commande </div>
-    <div class="panel-body">
-
-      <div class="form-group" >
-        <label class="col-md-4 control-label">Choisir le Programme:</label>
-        <div class="col-md-8">
-         <select class="form-control"  [(ngModel)]="Commande.programme" >
-            <option *ngFor="let p of programmes" [ngValue]="p"  >{{p.produit.intituler}}</option>
-          </select>
-        </div>
       </div>
-      <section>
-          <table class="table table-striped">
-              <thead>
-              <tr>
-                <th>Numero Programme {{selectedProgramme?.codeProgramme}} </th>
-                <th>Intituler Produit </th>
-                <th>nbr des inscrit </th>
-                <th>Date debut </th>
-                <th>Date Fin </th>
-              </tr>
-              </thead>
-              <tbody>
-              <tr >
-                <td>{{Commande.programme?.codeProgramme}}</td>
-                <td>{{Commande.programme?.produit?.intituler}}</td>
-                <td>{{Commande.programme?.nombreInscrit}}</td>
-                <td>{{Commande.programme?.dateDebut}}</td>
-                <td>{{Commande.programme?.dateFin}}</td>
-              </tr>
-              </tbody>
-            </table>
-            
-            <table class="table table-striped" >
-                <thead>
-                <tr>
-                  <th>Code groupe</th>
-                  <th>nombre des inscris</th>
-                  <th>Jours</th>
-                  <th>Horraire</th>
-                  <th>Responsable</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let gr of Commande.programme?.listGroupe">
-                  <td>{{gr.codeGroupe}}</td>
-                  <td>{{gr.listEnfant?.length}}</td>
-                  <td>{{gr.jour}}</td>
-                  <td>{{gr.heureDebut}} - {{gr.heureFin}}</td>
-                  <td>{{gr.responsable?.nom}} {{gr.responsable?.prenom}} </td>
-                  <td>
-                      <input type="radio" id=groupe  (click)="setGroupeEnfant(gr)"  >
-                  </td>
-                </tr>
-                </tbody>
-              </table>
-
-      </section>
-      <div class="form-group" >
-        <label class="col-md-4 control-label">Choisir les Enfants:</label>
-        <div class="col-md-8">
-          <select class="form-control"  [(ngModel)]="Commande.listEnfant" multiple  (change)="selectModeFacturation()">
-            <option *ngFor="let e of selectedClient.listEnfant" [ngValue]="e" >{{e.prenom}}</option>
-          </select>
-          <input type="button" class="btn btn-danger btn-xs" value="annuler"
-                 (click)="listEnfantCommande=null" />
-        </div>
-      </div>
-      <div class="form-group" >
-          <label class="col-md-4 control-label">Mode facturation</label>
-          <div class="col-md-8">
-            <select class="form-control"  [(ngModel)]="modeFacturation" (change)="selectModeFacturation()" >
-                <option  value="PF">prix fixe</option>
-                <option  value="PN">prix négociable</option>
-              </select>
-          </div>
-        </div>
-        <section *ngIf="modeFacturation=='PF' ">
-            <table class="table table-striped"  >
-                <thead>
-                <tr>
-                  <th>Code Promotion</th><th>Intituler</th><th>Description</th>
-                  <th>Date debut</th><th>Date fin</th><th>Taux</th><th>Choisir</th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr *ngFor="let p of ListPromotion" >
-                  <td>{{p.codePromo}}</td><td>{{p.intituler}}</td>
-                  <td>{{p.description}}</td><td>{{p.dateDebut}}</td><td>{{p.dateFin}}</td>
-                  <td>{{p.taux}}</td>
-                  <td> <input type="checkbox" (click)="SelectPromotion(p)"> </td>
-
-                </tr>
-                </tbody>
-              </table>
-          
-          <div class="form-group" >
-              <label class="col-md-4 control-label">Prix fixe / enfant : </label>
-              <div class="col-md-8">
-
-                <input type="text" disabled class="form-control"[(ngModel)]="Commande.programme?.produit.prix">
-              </div>
-          </div>
-        </section>
-        <section *ngIf="modeFacturation=='PN'">
-            <div class="form-group" >
-                <label class="col-md-4 control-label">Prix négocié / enfant :</label>
-                <div class="col-md-8">
-                   <input type="text" class="form-control"  [(ngModel)]="prixNegocie">
-                </div>
-            </div>
-        </section>
-
-        <section >
-            <div class="form-group" >
-                <label class="col-md-4 control-label">Prix totale : </label>
-                <div class="col-md-8">
-            <input type="text"  class="form-control" [(ngModel)]="prixTotal" disabled>
-                </div>
-            </div>
-        </section>
-
-      <div class="form-group">
-        <input type="button" id="btnSaveCommande" class="form-control btn-space" value="Sauvgarder" (click)="saveCommande()" />
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
-</div>
+
+
+
+
+
 

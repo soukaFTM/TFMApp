@@ -1,163 +1,196 @@
+
 <div>
-  <h3> Liste des produits </h3>
- <!-- Chercher un produit -->
-  <div>
-    <label>mot cle :</label>
-    <input type="text" [(ngModel)]="motCle"/>
-    <button (click)=" newSearch();searchProduits()">Chercher</button>
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Liste des produits</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouveau Produit</a></li>
+   </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+
+      <div class="panel panel-success">
+        <div class="panel-heading">
+          Liste des produits 
+            </div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Numero Produit </th><th>Type</th><th>Intituler</th><th>Description</th>
+              <th>Prix</th><th>Opperation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let p of pageProduits">
+              <td>{{p.numProduit}}</td>
+              <td>{{p.typeProduit?.intituler}}</td>
+    
+              <td>{{p.intituler}}</td><td>{{p.description}}</td>
+              <td>{{p.prix}}</td>
+              <td>
+                <input type="button" class="btn btn-success btn-xs" data-toggle="modal" data-target="#exampleModal" value="Detail" (click)="ShowDetailProduit(p)" />
+                <input type="button" class="btn btn-warning btn-xs" value="Modifier" (click)="GetUpdateProduit(p)" />
+                <input type="button" class="btn btn-danger btn-xs" value="X" (click)="deleteProduit(p.numProduit)" />
+              </td>
+    
+            </tr>
+            </tbody>
+          </table>
+          <ul class ="nav nav-pillis">
+            <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+              <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+            </li>
+          </ul>
+      </div>
+      </div>
+
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      <div class="panel panel-info">
+        <div class="panel-heading">Nouveau Produit </div>
+        <div class="panel-body ">
+          <div class="form-group">
+            <label class="col-md-4 control-label">type Produit:</label>
+            <div class="col-md-8">
+              <select [(ngModel)]="produit.typeProduit" class="form-control">
+                <option disabled selected>Please select...</option>
+                <option *ngFor="let type of typeProduits" [ngValue]="type" >{{type.intituler}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Intituler:</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="produit.intituler">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Description:</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control"placeholder="Description" [(ngModel)]="produit.description">
+            </div>
+          </div>
+          <div class="form-group">
+            <label class="col-md-4 control-label">Prix:</label>
+            <div class="col-md-8">
+              <input type="text" class="form-control"  placeholder="Prix" [(ngModel)]="produit.prix">
+            </div>
+          </div>
+          <div class="form-group">
+            <input type="button"  type="submit" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionProduit()" />
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
-  <!-- Lister les produits -->
-  <div>
-  <table class="table table-striped">
-    <thead>
-    <tr>
-      <th>Numero Produit </th><th>Type</th><th>Intituler</th><th>Description</th>
-      <th>Prix</th><th>Oppertaion</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let p of pageProduits">
-      <td>{{p.numProduit}}</td>
-      <td>{{p.typeProduit?.intituler}}</td>
 
-      <td>{{p.intituler}}</td><td>{{p.description}}</td>
-      <td>{{p.prix}}</td>
-      <td>
-        <input type="button" class="btn btn-warning" value="Detail" (click)="ShowDetailProduit(p)" />
-        <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateProduit(p)" />
-        <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteProduit(p.numProduit)" />
-      </td>
-
-    </tr>
-    </tbody>
-  </table>
-    <ul class ="nav nav-pillis">
-
-      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-<div >
-  <h3> Liste des projet du produit : {{produitDetail?.intituler}}</h3>
-  <table>
-    <tr>
-      <td>projet</td><td>Ajouter</td>
-    </tr>
-    <tr>
-      <td>
-        <select [(ngModel)]="selectedProjet" >
-          <option disabled selected>Please select...</option>
-          <option *ngFor="let p of listProjet" [ngValue]="p">{{p.codeProjet}}:{{p.intituler}}</option>
-        </select>
-      </td>
-      <td>
-        <input type="button" class="btn btn-danger" value="+"
-               (click)="addProjetToProduit(produitDetail)" />
-      </td>
-
-    </tr>
-  </table>
-  <table class="table table-striped" border="1">
-    <thead>
-    <tr>
-      <th>Code projet</th><th>Intituler</th><th>Description</th>
-      <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let proj of produitDetail?.listProjet">
-      <td>{{proj.codeProjet}}</td>
-      <td>{{proj.intituler}}</td><td>{{proj.description}}</td>
-      <td>
-        <input type="button" class="btn btn-danger" value="X" (click)="removeProjetFromProduit(produitDetail,proj)"  />
-      </td>
-    </tr>
-    </tbody>
-  </table>
 </div>
 
 
-<div >
-  <h3> Liste des Competence du produit : {{produitDetail?.intituler}}</h3>
-  <table>
-    <tr>
-      <td>Competence</td><td>Ajouter</td>
-    </tr>
-    <tr>
-      <td>
-        <select [(ngModel)]="selectedCompetence" >
-          <option disabled selected>Please select...</option>
-          <option *ngFor="let p of listCompetence" [ngValue]="p">{{p.codeCompetence}}:{{p.intituler}}</option>
-        </select>
-      </td>
-      <td>
-        <input type="button" class="btn btn-danger" value="+"
-               (click)="addCompetenceToProduit(produitDetail)" />
-      </td>
-
-    </tr>
-  </table>
-  <table class="table table-striped" border="1">
-    <thead>
-    <tr>
-      <th>Code Competence</th><th>Intituler</th><th>Description</th>
-      <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let comp of produitDetail?.listCompetence">
-      <td>{{comp.codeCompetence}}</td>
-      <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
-      <td>
-        <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromFormateur(Formateur,comp)"  />
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel"> produit : {{produitDetail?.intituler}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
 
 
-<!-- gérer un produit -->
-<div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouveau Produit </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="col-md-4 control-label">type Produit:</label>
-        <div class="col-md-8">
-
-          <select [(ngModel)]="produit.typeProduit" >
-            <option disabled selected>Please select...</option>
-            <option *ngFor="let type of typeProduits" [ngValue]="type" >{{type.intituler}}</option>
-          </select>
+        <div >
+          <h4> Liste des projet </h4>
+          <table>
+            <tr>
+              <td>projet</td><td>Ajouter</td>
+            </tr>
+            <tr>
+              <td>
+                <select [(ngModel)]="selectedProjet" >
+                  <option disabled selected>Please select...</option>
+                  <option *ngFor="let p of listProjet" [ngValue]="p">{{p.codeProjet}}:{{p.intituler}}</option>
+                </select>
+              </td>
+              <td>
+                <input type="button" class="btn btn-danger" value="+"
+                       (click)="addProjetToProduit(produitDetail)" />
+              </td>
+        
+            </tr>
+          </table>
+          <table class="table table-striped" >
+            <thead>
+            <tr>
+              <th>Code projet</th><th>Intituler</th><th>Description</th>
+              <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let proj of produitDetail?.listProjet">
+              <td>{{proj.codeProjet}}</td>
+              <td>{{proj.intituler}}</td><td>{{proj.description}}</td>
+              <td>
+                <input type="button" class="btn btn-danger" value="X" (click)="removeProjetFromProduit(produitDetail,proj)"  />
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Intituler:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="produit.intituler">
+        
+        
+        <div >
+          <h4> Liste des Competence</h4>
+          <table>
+            <tr>
+              <td>Competence</td><td>Ajouter</td>
+            </tr>
+            <tr>
+              <td>
+                <select [(ngModel)]="selectedCompetence" >
+                  <option disabled selected>Please select...</option>
+                  <option *ngFor="let p of listCompetence" [ngValue]="p">{{p.codeCompetence}}:{{p.intituler}}</option>
+                </select>
+              </td>
+              <td>
+                <input type="button" class="btn btn-danger" value="+"
+                       (click)="addCompetenceToProduit(produitDetail)" />
+              </td>
+        
+            </tr>
+          </table>
+          <table class="table table-striped">
+            <thead>
+            <tr>
+              <th>Code Competence</th><th>Intituler</th><th>Description</th>
+              <th>Operation</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let comp of produitDetail?.listCompetence">
+              <td>{{comp.codeCompetence}}</td>
+              <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
+              <td>
+                <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromFormateur(Formateur,comp)"  />
+              </td>
+            </tr>
+            </tbody>
+          </table>
         </div>
+       
       </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Description:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"placeholder="Description" [(ngModel)]="produit.description">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Prix:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control"  placeholder="Prix" [(ngModel)]="produit.prix">
-        </div>
-      </div>
-      <div class="form-group">
-        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionProduit()" />
-        <input type="button"  class="form-control btn-space" value="test" (click)="test()" />
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
 

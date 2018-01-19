@@ -1,61 +1,84 @@
+
+
 <div>
-  <h3> Liste des Competences </h3>
-  <!-- Lister les Competences -->
-  <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Numero Competence </th>
-        <th>Intituler  </th>
-        <th>Description  </th>
-        <th>Oppertaion</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let p of pageCompetences">
-        <td>{{p.codeCompetence}}</td>
-        <td>{{p.intituler}}</td>
-        <td>{{p.description}}</td>
-        <td>
-          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateCompetence(p)" />
-          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteCompetence(p.numCompetence)" />
-        </td>
 
-      </tr>
-      </tbody>
-    </table>
-    <ul class ="nav nav-pillis">
-
-      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-
+    <!-- Nav tabs -->
+    <ul class="nav nav-tabs" role="tablist">
+      <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab"> Liste des Competences</a></li>
+      <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouvelel compétence</a></li>
+     </ul>
+  
+    <!-- Tab panes -->
+    <div class="tab-content">
+      <div role="tabpanel" class="tab-pane active" id="home">
+          <div>
+              <!-- Lister les Competences -->
+              <div>
+                <table class="table table-striped">
+                  <thead>
+                  <tr>
+                    <th>Numero Competence </th>
+                    <th>Intituler  </th>
+                    <th>Description  </th>
+                    <th>Oppertaion</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr *ngFor="let p of pageCompetences">
+                    <td>{{p.codeCompetence}}</td>
+                    <td>{{p.intituler}}</td>
+                    <td>{{p.description}}</td>
+                    <td>
+                      <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateCompetence(p)" />
+                      <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteCompetence(p.codeCompetence)" />
+                    </td>
+            
+                  </tr>
+                  </tbody>
+                </table>
+                <ul class ="nav nav-pillis">
+            
+                  <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+                    <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            
+      </div>
+      <div role="tabpanel" class="tab-pane" id="profile">
+        
 <!-- gérer un Competence -->
 <div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouveau Competence </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="col-md-4 control-label">Intituler:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Competence.intituler">
+    <div class="panel panel-default">
+      <div class="panel-heading">Nouveau Competence </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-md-4 control-label">Intituler:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Competence.intituler">
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Description:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Description" [(ngModel)]="Competence.description">
+        <div class="form-group">
+          <label class="col-md-4 control-label">Description:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Description" [(ngModel)]="Competence.description">
+          </div>
         </div>
-      </div>
-
-      <div class="form-group">
-        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionCompetence()" />
+  
+        <div class="form-group">
+          <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionCompetence()" />
+        </div>
       </div>
     </div>
   </div>
-</div>
+  
+  
+      </div>
+    </div>
+  
+  </div>
+
+  
+
 

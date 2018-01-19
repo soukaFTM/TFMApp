@@ -1,127 +1,172 @@
+
+
 <div>
-  <h3> Liste des Formateurs </h3>
-  <!-- Lister les Formateurs -->
+
+  <!-- Nav tabs -->
+  <ul class="nav nav-tabs" role="tablist">
+    <li role="presentation" class="active"><a href="#home" aria-controls="home" role="tab" data-toggle="tab">Liste des formateurs</a></li>
+    <li role="presentation"><a href="#profile" aria-controls="profile" role="tab" data-toggle="tab">Nouveau Formateur</a></li>
+   </ul>
+
+  <!-- Tab panes -->
+  <div class="tab-content">
+    <div role="tabpanel" class="tab-pane active" id="home">
+   
   <div>
-    <table class="table table-striped">
-      <thead>
-      <tr>
-        <th>Numero Formateur </th>
-        <th>CIN </th>
-        <th>nom </th>
-        <th>prenom </th>
-        <th>Date debut de travail </th>
-        <th>type de contrat </th>
-        <th>Oppertaion</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr *ngFor="let p of pageFormateurs">
-        <td>{{p.codeFormateur}}</td>
-        <td>{{p.cin}}</td>
-        <td>{{p.nom}}</td>
-        <td>{{p.prenom}}</td>
-        <td>{{p.datedebut}}</td>
-        <td>{{p.typedecontrat}}</td>
-        <td>
-          <input type="button" class="btn btn-success" value="Suivi de paiement" (click)="suiviMensuelle(p)" />
-          <input type="button" class="btn btn-warning" value="Modifier" (click)="GetUpdateFormateur(p)" />
-          <input type="button" class="btn btn-danger" value="Supprimer" (click)="deleteFormateur(p.numFormateur)" />
-        </td>
-
-      </tr>
-      </tbody>
-    </table>
-    <ul class ="nav nav-pillis">
-
-      <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
-        <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
-      </li>
-    </ul>
-  </div>
-</div>
-
-
-<div >
-  <h3> Liste des Competence du Formateur : {{Formateur?.nom}} {{Formateur?.prenom}}</h3>
-  <table>
-    <tr>
-      <td>Competence</td><td>Ajouter</td>
-    </tr>
-    <tr>
-      <td>
-        <select [(ngModel)]="selectedCompetence" >
-          <option disabled selected>Please select...</option>
-          <option *ngFor="let p of listCompetence" [ngValue]="p">{{p.codeCompetence}}:{{p.intituler}}</option>
-        </select>
-      </td>
-      <td>
-        <input type="button" class="btn btn-danger" value="+"
-               (click)="addCompetenceToFormateur(Formateur)" />
-      </td>
-
-    </tr>
-  </table>
-  <table class="table table-striped" border="1">
-    <thead>
-    <tr>
-      <th>Code Competence</th><th>Intituler</th><th>Description</th>
-      <th>Operation</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr *ngFor="let comp of Formateur?.mesCompetences">
-      <td>{{comp.codeCompetence}}</td>
-      <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
-      <td>
-        <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromProduit(produitDetail,comp)"  />
-      </td>
-    </tr>
-    </tbody>
-  </table>
-</div>
-
-
-
+      <table class="table table-striped">
+        <thead>
+        <tr>
+          <th>Numero Formateur </th>
+          <th>CIN </th>
+          <th>nom </th>
+          <th>prenom </th>
+          <th>Date debut de travail </th>
+          <th>type de contrat </th>
+          <th>Oppertaion</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let p of pageFormateurs">
+          <td>{{p.codeFormateur}}</td>
+          <td>{{p.cin}}</td>
+          <td>{{p.nom}}</td>
+          <td>{{p.prenom}}</td>
+          <td>{{p.datedebut}}</td>
+          <td>{{p.typedecontrat}}</td>
+          <td>
+            <input type="button" class="btn btn-success btn-xs" value="Suivi de paiement" (click)="suiviMensuelle(p)" />
+            <input type="button" class="btn btn-success btn-xs" value="competence" data-toggle="modal" data-target="#exampleModal" (click)="GetUpdateFormateur(p)" />
+            <input type="button" class="btn btn-warning btn-xs" value="edit" (click)="GetUpdateFormateur(p)" />
+            <input type="button" class="btn btn-danger btn-xs" value="X" (click)="deleteFormateur(p.numFormateur)" />
+          </td>
+  
+        </tr>
+        </tbody>
+      </table>
+      <ul class ="nav nav-pillis">
+  
+        <li [ngClass]="{'active':i==Currentpage}" *ngFor="let p of pages; let indexPage=index">
+          <a (click)="goToPage(indexPage)"> {{indexPage}} </a>
+        </li>
+      </ul>
+    </div>
+    </div>
+    <div role="tabpanel" class="tab-pane" id="profile">
+      
 <!-- gérer un Formateur -->
 <div>
-  <div class="panel panel-default">
-    <div class="panel-heading">Nouveau Formateur </div>
-    <div class="panel-body">
-      <div class="form-group">
-        <label class="col-md-4 control-label">CIN:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.cin">
+    <div class="panel panel-default">
+      <div class="panel-heading">Nouveau Formateur </div>
+      <div class="panel-body">
+        <div class="form-group">
+          <label class="col-md-4 control-label">CIN:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.cin">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">nom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.nom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">prenom:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.prenom">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Date aumbauche:</label>
+          <div class="col-md-8">
+            <input type="date" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.datedebut">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-4 control-label">Type de contrat:</label>
+          <div class="col-md-8">
+            <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.typedecontrat">
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionFormateur()" />
         </div>
       </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">nom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.nom">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">prenom:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.prenom">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Date aumbauche:</label>
-        <div class="col-md-8">
-          <input type="date" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.datedebut">
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-4 control-label">Type de contrat:</label>
-        <div class="col-md-8">
-          <input type="text" class="form-control" placeholder="Intituler" [(ngModel)]="Formateur.typedecontrat">
-        </div>
-      </div>
+    </div>
+  </div>
+  
+    </div>
+  </div>
 
-      <div class="form-group">
-        <input type="button" id="btnSave" class="form-control btn-space" value="Sauvgarder" (click)="gestionFormateur()" />
+</div>
+
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">  Liste des Competence du Formateur : {{Formateur?.nom}} {{Formateur?.prenom}}</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+          <div >
+              <table>
+                <tr>
+                  <td>Competence</td><td>Ajouter</td>
+                </tr>
+                <tr>
+                  <td>
+                    <select [(ngModel)]="selectedCompetence" >
+                      <option disabled selected>Please select...</option>
+                      <option *ngFor="let p of listCompetence" [ngValue]="p">{{p.codeCompetence}}:{{p.intituler}}</option>
+                    </select>
+                  </td>
+                  <td>
+                    <input type="button" class="btn btn-danger" value="+"
+                           (click)="addCompetenceToFormateur(Formateur)" />
+                  </td>
+            
+                </tr>
+              </table>
+              <table class="table table-striped" >
+                <thead>
+                <tr>
+                  <th>Code Competence</th><th>Intituler</th><th>Description</th>
+                  <th>Operation</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr *ngFor="let comp of Formateur?.mesCompetences">
+                  <td>{{comp.codeCompetence}}</td>
+                  <td>{{comp.intituler}}</td><td>{{comp.description}}</td>
+                  <td>
+                    <input type="button" class="btn btn-danger" value="X" (click)="removeCompetenceFromFormateur(Formateur,comp)"  />
+                  </td>
+                </tr>
+                </tbody>
+              </table>
+            </div>
+            
+            
+
+    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+
+
+
 
